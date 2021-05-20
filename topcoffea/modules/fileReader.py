@@ -89,7 +89,7 @@ def GetEntries(fname, treeName = 'Events'):
   elif isinstance(fname, str):
     f = uproot.open(fname)
     t = f[treeName]
-    return len(t['MET_pt'])
+    return t.num_entries
   else: print('[ERROR] [GetEntries]: wrong input')
 
 def GuessIsData(fname):
@@ -170,30 +170,31 @@ def GetAllInfoFromFile(fname, treeName = 'Events'):
     f = uproot.open(fname)
     t = f[treeName]
     isData = not 'genWeight' in t#.keys()
-    nEvents = int(t['MET_pt'].num_entries)
+    nEvents = t['event'].num_entries
     ## Method 1: from histograms
-    if 'Count' in f and False:
+    if 'Count' in f:
       hc = f['Count']
-      nGenEvents = hc.values[0] #hc.GetBinContent(1) if isinstance(hc,TH1F) else 1
+      nGenEvents = hc.values()[0] #hc.GetBinContent(1) if isinstance(hc,TH1F) else 1
       nSumOfWeights = 0
       keys = [str(k) for k in f.keys()]
       for k in keys:
         if 'SumWeights' in str(k):
           hs = f['SumWeights']
-          nSumOfWeights = hs.values[0]
+          nSumOfWeights = hs.values()[0]
       if nSumOfWeights == 0: 
         nSumOfWeights = nGenEvents
     # Method 2: from 'Runs' tree
-    elif 'Runs' in f:
+    elif (('Runs' in f) & (not isData)):
       r = f['Runs']
       genEventSumw  = 'genEventSumw'  if 'genEventSumw'  in r else 'genEventSumw_'
       genEventCount = 'genEventCount' if 'genEventCount' in r else 'genEventCount_'
-      nGenEvents    = sum(r[genEventSumw] .array())
-      nSumOfWeights = sum(r[genEventCount].array())
+      nGenEvents    = sum(r[genEventCount] .array())
+      nSumOfWeights = sum(r[genEventSumw].array())
     # Method 3: from unskimmed file
     else:
       nGenEvents = nEvents
       nSumOfWeights = sum(t['genWeight']) if not isData else nEvents
+    if nSumOfWeights == 0: nSumOfWeights = nEvents
     return [nEvents, nGenEvents, nSumOfWeights, isData]
   else: print('[ERROR] [GetAllInfoFromFile]: wrong input')
 
