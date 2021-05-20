@@ -32,6 +32,7 @@ class AnalysisProcessor(processor.ProcessorABC):
         self._accumulator = processor.dict_accumulator({
         'SumOfEFTweights'  : HistEFT("SumOfWeights", wc_names_lst, hist.Cat("sample", "sample"), hist.Bin("SumOfEFTweights", "sow", 1, 0, 2)),
         'dummy'   : hist.Hist("Dummy" , hist.Cat("sample", "sample"), hist.Bin("dummy", "Number of events", 1, 0, 1)),
+<<<<<<< HEAD
         'counts'  : hist.Hist("Events", hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Cat("sumcharge", "sumcharge"), hist.Cat("systematic", "Systematic Uncertainty"),hist.Bin("counts", "Counts", 1, 0, 2)),
         'invmass' : HistEFT("Events", wc_names_lst, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Cat("sumcharge", "sumcharge"), hist.Cat("systematic", "Systematic Uncertainty"), hist.Bin("invmass", "$m_{\ell\ell}$ (GeV) ", 20, 0, 200)),
         'njets'   : HistEFT("Events", wc_names_lst, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Cat("sumcharge", "sumcharge"), hist.Cat("systematic", "Systematic Uncertainty"), hist.Bin("njets",  "Jet multiplicity ", 10, 0, 10)),
@@ -47,6 +48,26 @@ class AnalysisProcessor(processor.ProcessorABC):
         'j0eta'   : HistEFT("Events", wc_names_lst, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Cat("sumcharge", "sumcharge"), hist.Cat("systematic", "Systematic Uncertainty"), hist.Bin("j0eta",  "Leading jet  $\eta$", 20, -2.5, 2.5)),
         'ht'      : HistEFT("Events", wc_names_lst, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Cat("sumcharge", "sumcharge"), hist.Cat("systematic", "Systematic Uncertainty"), hist.Bin("ht",     "H$_{T}$ (GeV)", 40, 0, 800)),
         'njetsnbtags' : HistEFT("Events", wc_names_lst, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Cat("sumcharge", "sumcharge"), hist.Cat("systematic", "Systematic Uncertainty"), hist.Bin("njets",  "Jet multiplicity ", 10, 0, 10), hist.Bin("nbtags", "btag multiplicity ", 5, 0, 5)), 
+=======
+        'counts'  : hist.Hist("Events", hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("counts", "Counts", 1, 0, 2)),
+        'invmass' : hist.Hist("Events", hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut","cut"), hist.Bin("invmass", "$m_{\ell\ell}$ (GeV) ", 60, 0, 150)),
+        'njets'   : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("njets",  "Jet multiplicitu ", 10, 0, 10)),
+        'nbtags'  : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("nbtags", "btag multiplicitu ", 5, 0, 5)),
+        'met'     : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("met",    "MET (GeV)", 40, 0, 400)),
+        'm3l'     : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("m3l",    "$m_{3\ell}$ (GeV) ", 20, 0, 200)),
+        'wleppt'  : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("wleppt", "$p_{T}^{lepW}$ (GeV) ", 20, 0, 200)),
+        'e0pt'    : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("e0pt",   "Leading elec $p_{T}$ (GeV)", 40, 0, 200)),
+        'm0pt'    : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("m0pt",   "Leading muon $p_{T}$ (GeV)", 40, 0, 200)),
+        'j0pt'    : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("j0pt",   "Leading jet  $p_{T}$ (GeV)", 43, 0, 200)),
+        'e0eta'   : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("e0eta",  "Leading elec $\eta$", 30, -3, 3)),
+        'm0eta'   : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("m0eta",  "Leading muon $\eta$", 30, -3, 3)),
+        'j0eta'   : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("j0eta",  "Leading jet  $\eta$", 41, -3, 3)),
+        'ht'      : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("ht",     "H$_{T}$ (GeV)", 40, 0, 800)),
+        'l0pt'    : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("l0pt",   "Leading lepton $p_{T}$ (GeV)", 22, 0, 200)),
+        'l0eta'   : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("l0eta",  "Leading lepton $\eta$", 43, -3, 3)),
+        'jpt'     : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("jpt",   "All jets  $p_{T}$ (GeV)", 43, 0, 200)),
+        'jeta'    : HistEFT("Events", WCNames, hist.Cat("sample", "sample"), hist.Cat("channel", "channel"), hist.Cat("cut", "cut"), hist.Bin("jeta",  "All jets  $\eta$", 41, -3, 3)),
+>>>>>>> 3589bdd07b545244c3fda0dd9808989f0d387ae8
         })
 
         self._eft_helper = EFTHelper(wc_names_lst)
@@ -70,15 +91,25 @@ class AnalysisProcessor(processor.ProcessorABC):
         isData = self._samples[dataset]['isData']
         datasets = ['SingleMuon', 'SingleElectron', 'EGamma', 'MuonEG', 'DoubleMuon', 'DoubleElectron']
         for d in datasets: 
-          if d in dataset: dataset = dataset.split('_')[0] 
+          if d in dataset: dataset = dataset.split('_')[0]
 
         # Initialize objects
         met = events.MET
         e   = events.Electron
         mu  = events.Muon
-        tau = events.Tau
+        #tau = events.Tau
         j   = events.Jet
- 
+
+        try:         
+            e['genPart'] = events.GenPart[e.genPartIdx]
+            mu['genPart']= events.GenPart[mu.genPartIdx]
+            e['flipmask'] = (e.genPart.pdgId + e.pdgId == 0)
+            mu['flipmask']=(mu.genPart.pdgId +mu.pdgId == 0)
+            #print(len(ak.flatten(e.flipmask[e.flipmask])))
+        except:
+            e['flipmask'] = (e.pdgId == 0)
+            mu['flipmask'] = (mu.pdgId == 0)
+
         # Muon selection
 
         mu['isPres'] = isPresMuon(mu.dxy, mu.dz, mu.sip3d, mu.looseId)
@@ -104,14 +135,14 @@ class AnalysisProcessor(processor.ProcessorABC):
         e_pres = e[e .isPres & e .isClean]
 
         # Tau selection
-        tau['isPres']  = isPresTau(tau.pt, tau.eta, tau.dxy, tau.dz, tau.leadTkPtOverTauPt, tau.idAntiMu, tau.idAntiEle, tau.rawIso, tau.idDecayModeNewDMs, minpt=20)
-        tau['isClean'] = isClean(tau, e_pres, drmin=0.4) & isClean(tau, mu_pres, drmin=0.4)
-        tau['isGood']  = tau['isPres']# & tau['isClean'], for the moment
-        tau= tau[tau.isGood]
+        #tau['isPres']  = isPresTau(tau.pt, tau.eta, tau.dxy, tau.dz, tau.leadTkPtOverTauPt, tau.idAntiMu, tau.idAntiEle, tau.rawIso, tau.idDecayModeNewDMs, minpt=20)
+        #tau['isClean'] = isClean(tau, e_pres, drmin=0.4) & isClean(tau, mu_pres, drmin=0.4)
+        #tau['isGood']  = tau['isPres']# & tau['isClean'], for the moment
+        #tau= tau[tau.isGood]
 
         nElec = ak.num(e)
         nMuon = ak.num(mu)
-        nTau  = ak.num(tau)
+        #nTau  = ak.num(tau)
 
         twoLeps   = (nElec+nMuon) == 2
         threeLeps = (nElec+nMuon) == 3
@@ -120,6 +151,12 @@ class AnalysisProcessor(processor.ProcessorABC):
         e0 = e[ak.argmax(e.pt,axis=-1,keepdims=True)]
         m0 = mu[ak.argmax(mu.pt,axis=-1,keepdims=True)]
 
+<<<<<<< HEAD
+=======
+        lep = ak.with_name(ak.concatenate([e, mu], axis=1), 'PtEtaPhiMCandidate')
+        l0 = lep[ak.argmax(lep.pt,axis=-1,keepdims=True)]
+
+>>>>>>> 3589bdd07b545244c3fda0dd9808989f0d387ae8
         # Jet selection
         jetptname = 'pt_nom' if hasattr(j, 'pt_nom') else 'pt'
         
@@ -200,11 +237,22 @@ class AnalysisProcessor(processor.ProcessorABC):
         emSSmask = (em.e.charge*em.m.charge>0)
         emSS = em[emSSmask]
         nemSS = len(ak.flatten(emSS))
+<<<<<<< HEAD
  
         lepSF_emSS      = GetLeptonSF(mu.pt, mu.eta, 'm', e.pt, e.eta, 'e', year=year)
         lepSF_emSS_up   = GetLeptonSF(mu.pt, mu.eta, 'm', e.pt, e.eta, 'e', year=year, sys=1)
         lepSF_emSS_down = GetLeptonSF(mu.pt, mu.eta, 'm', e.pt, e.eta, 'e', year=year, sys=-1)
         
+=======
+
+        emOSmask = (em.e.charge*em.m.charge<0)
+        emOS = em[emOSmask]
+        nemOS = len(ak.flatten(emOS))
+
+        year = 2018
+        lepSF_emSS = GetLeptonSF(mu.pt, mu.eta, 'm', e.pt, e.eta, 'e', year=year)
+
+>>>>>>> 3589bdd07b545244c3fda0dd9808989f0d387ae8
         # ee and mumu
         # pt>-1 to preserve jagged dimensions
         ee = e [(nElec==2)&(nMuon==0)&(e.pt>-1)]
@@ -214,11 +262,13 @@ class AnalysisProcessor(processor.ProcessorABC):
 
         eepairs = ak.combinations(ee, 2, fields=["e0","e1"])
         eeSSmask = (eepairs.e0.charge*eepairs.e1.charge>0)
+        eeOSmask = (eepairs.e0.charge*eepairs.e1.charge<0)
         eeonZmask  = (np.abs((eepairs.e0+eepairs.e1).mass-91.2)<10)
         eeoffZmask = (eeonZmask==0)
 
         mmpairs = ak.combinations(mm, 2, fields=["m0","m1"])
         mmSSmask = (mmpairs.m0.charge*mmpairs.m1.charge>0)
+        mmOSmask = (mmpairs.m0.charge*mmpairs.m1.charge<0)
         mmonZmask = (np.abs((mmpairs.m0+mmpairs.m1).mass-91.2)<10)
         mmoffZmask = (mmonZmask==0)
 
@@ -228,9 +278,22 @@ class AnalysisProcessor(processor.ProcessorABC):
         mmSSoffZ = mmpairs[mmSSmask & mmoffZmask]
         neeSS = len(ak.flatten(eeSSonZ)) + len(ak.flatten(eeSSoffZ))
         nmmSS = len(ak.flatten(mmSSonZ)) + len(ak.flatten(mmSSoffZ))
+
+        eeOSonZ  = eepairs[eeOSmask &  eeonZmask]
+        eeOSoffZ = eepairs[eeOSmask & eeoffZmask]
+        mmOSonZ  = mmpairs[mmOSmask &  mmonZmask]
+        mmOSoffZ = mmpairs[mmOSmask & mmoffZmask]
+        eeOS = eepairs[eeOSmask]
+        mmOS = mmpairs[mmOSmask]
+        neeOS = len(ak.flatten(eeOS))
+        nmmOS = len(ak.flatten(mmOS))
+
+        #print('Same-sign events: total [ee, emu, mumu] = %i [%i, %i, %i]'%(neeSS+nemSS+nmmSS, neeSS, nemSS, nmmSS))
+        #print('Opposite-sign events: total [ee, emu, mumu] = %i [%i, %i, %i]'%(neeOS+nemOS+nmmOS, neeOS, nemOS, nmmOS))
         
         lepSF_eeSS = GetLeptonSF(eepairs.e0.pt, eepairs.e0.eta, 'e', eepairs.e1.pt, eepairs.e1.eta, 'e', year=year)
         lepSF_mumuSS = GetLeptonSF(mmpairs.m0.pt, mmpairs.m0.eta, 'm', mmpairs.m1.pt, mmpairs.m1.eta, 'm', year=year)
+<<<<<<< HEAD
         lepSF_eeSS_up = GetLeptonSF(eepairs.e0.pt, eepairs.e0.eta, 'e', eepairs.e1.pt, eepairs.e1.eta, 'e', year=year, sys=1)
         lepSF_mumuSS_up = GetLeptonSF(mmpairs.m0.pt, mmpairs.m0.eta, 'm', mmpairs.m1.pt, mmpairs.m1.eta, 'm', year=year, sys=1)
         lepSF_eeSS_down = GetLeptonSF(eepairs.e0.pt, eepairs.e0.eta, 'e', eepairs.e1.pt, eepairs.e1.eta, 'e', year=year, sys=-1)
@@ -238,6 +301,9 @@ class AnalysisProcessor(processor.ProcessorABC):
 
         print('Same-sign events [ee, emu, mumu] = [%i, %i, %i]'%(neeSS, nemSS, nmmSS))
 
+=======
+    
+>>>>>>> 3589bdd07b545244c3fda0dd9808989f0d387ae8
         # Cuts
         eeSSmask   = (ak.num(eeSSmask[eeSSmask])>0)
         mmSSmask   = (ak.num(mmSSmask[mmSSmask])>0)
@@ -247,6 +313,16 @@ class AnalysisProcessor(processor.ProcessorABC):
         mmoffZmask = (ak.num(mmoffZmask[mmoffZmask])>0)
         emSSmask   = (ak.num(emSSmask[emSSmask])>0)
 
+        eeOSmask   = (ak.num(eeOSmask[eeOSmask])>0)
+        mmOSmask   = (ak.num(mmOSmask[mmOSmask])>0)
+        emOSmask   = (ak.num(emOSmask[emOSmask])>0)
+
+        CR2LSSjetmask = ((njets==1)|(njets==2)) & (nbtags==1)
+        CR2LSSlepmask = (eeSSmask) | (mmSSmask) | (emSSmask)
+        CR2LSSmask = (CR2LSSjetmask) & (CR2LSSlepmask)
+
+        CRttbarmask = (emOSmask) & (njets == 2) & (nbtags == 2)
+        CRZmask = (((eeOSmask)) | ((mmOSmask))) & (nbtags == 0)
 
         ##################################################################
         ### 3 leptons
@@ -281,7 +357,7 @@ class AnalysisProcessor(processor.ProcessorABC):
 
         mmpair_mme     = (mm_mme.m0+mm_mme.m1)
         trilep_mme     = mmpair_mme+elec_mme
-
+        
         mZ_mme  = mmpair_mme.mass
         mZ_eem  = eepair_eem.mass
         m3l_eem = trilep_eem.mass
@@ -321,6 +397,10 @@ class AnalysisProcessor(processor.ProcessorABC):
         eeeOffZmask = (ak.num(offZmask_ee[offZmask_ee])>0)
         mmmOnZmask  = (ak.num(onZmask_mm[onZmask_mm])>0)
         mmmOffZmask = (ak.num(offZmask_mm[offZmask_mm])>0)
+
+        CR3Ljetmask = (njets>=1) & (nbtags==0)
+        CR3Llepmask = (eeeOnZmask) | (eeeOffZmask) | (mmmOnZmask) | (mmmOffZmask) | (ee_eemZmask) | (ee_eemOffZmask) | (mm_mmeZmask) | (mm_mmeOffZmask)
+        CR3Lmask = (CR3Ljetmask) & (CR3Llepmask)        
 
         # Now we need to create masks for the leptons in order to select leptons from the Z boson candidate (in onZ categories)
         ZeeMask = ak.argmin(np.abs((eeSFOS_pairs.e0 + eeSFOS_pairs.e1).mass - 91.2),axis=1,keepdims=True)
@@ -371,7 +451,7 @@ class AnalysisProcessor(processor.ProcessorABC):
         # MET filters
 
         # Weights
-        genw = np.ones_like(events['MET_pt']) if isData else events['genWeight']
+        genw = np.ones_like(events['event']) if isData else events['genWeight']
 
         ### We need weights for: normalization, lepSF, triggerSF, pileup, btagSF...
         weights = {}
@@ -402,6 +482,13 @@ class AnalysisProcessor(processor.ProcessorABC):
         selections.add('mmSSoffZ', (mmoffZmask)&(mmSSmask)&(trig_mmSS))
         selections.add('emSS',     (emSSmask)&(trig_emSS))
 
+        channels2LSS+= ['eeOSonZ', 'eeOSoffZ', 'mmOSonZ', 'mmOSoffZ', 'emOS']
+        selections.add('eeOSonZ',  (eeonZmask)&(eeOSmask)&(trig_eeSS))
+        selections.add('eeOSoffZ', (eeoffZmask)&(eeOSmask)&(trig_eeSS))
+        selections.add('mmOSonZ',  (mmonZmask)&(mmOSmask)&(trig_mmSS))
+        selections.add('mmOSoffZ', (mmoffZmask)&(mmOSmask)&(trig_mmSS))
+        selections.add('emOS',     (emOSmask)&(trig_emSS))
+
         channels3L = ['eemSSonZ', 'eemSSoffZ', 'mmeSSonZ', 'mmeSSoffZ']
         selections.add('eemSSonZ',   (ee_eemZmask)&(trig_eem))
         selections.add('eemSSoffZ',  (ee_eemOffZmask)&(trig_eem))
@@ -414,16 +501,65 @@ class AnalysisProcessor(processor.ProcessorABC):
         selections.add('mmmSSonZ',   (mmmOnZmask)&(trig_mmm))
         selections.add('mmmSSoffZ',  (mmmOffZmask)&(trig_mmm))
 
+<<<<<<< HEAD
         selections.add('4l', (is4lmask)&(trig_4l))
         selections.add('ch+', (sumcharge>0))
         selections.add('ch-', (sumcharge<0))
 
         levels = ['base', '2jets', '4jets', '4j1b', '4j2b']
+=======
+        levels = ['base', '2jets', '4jets', '4j1b', '4j2b', 'CR2L', 'CR3L', 'CRttbar', 'CRZ']
+>>>>>>> 3589bdd07b545244c3fda0dd9808989f0d387ae8
         selections.add('base', (nElec+nMuon>=2))
         selections.add('2jets',(njets>=2))
         selections.add('4jets',(njets>=4))
         selections.add('4j1b',(njets>=4)&(nbtags>=1))
         selections.add('4j2b',(njets>=4)&(nbtags>=2))
+
+        selections.add('CR2L', CR2LSSmask)
+        selections.add('CR3L', CR3Lmask)
+        selections.add('CRttbar', CRttbarmask)
+        selections.add('CRZ', CRZmask)
+
+        eeflipmask = ak.fill_none(ak.firsts(eepairs.e0.flipmask | eepairs.e1.flipmask), False)
+        mmflipmask = ak.fill_none(ak.firsts(mmpairs.m0.flipmask | mmpairs.m1.flipmask), False)
+        emflipmask = ak.fill_none(ak.firsts(em.e.flipmask | em.m.flipmask), False)
+
+        eemflipmask = ak.fill_none(ak.firsts(ee_eem.e0.flipmask | ee_eem.e1.flipmask), False)
+        mmeflipmask = ak.fill_none(ak.firsts(mm_mme.m0.flipmask | mm_mme.m1.flipmask), False)
+        eeeflipmask = ak.fill_none(ak.firsts(ee_pairs.e0.flipmask | ee_pairs.e1.flipmask), False)
+        mmmflipmask = ak.fill_none(ak.firsts(mm_pairs.m0.flipmask | mm_pairs.m1.flipmask), False)
+ 
+        isFlip = {
+          'eeSSonZ'  : (eeflipmask)&(eeonZmask) &(eeSSmask),
+          'eeSSoffZ' : (eeflipmask)&(eeoffZmask)&(eeSSmask),
+          'mmSSonZ'  : (mmflipmask)&(mmonZmask) &(mmSSmask), 
+          'mmSSoffZ' : (mmflipmask)&(mmoffZmask)&(mmSSmask), 
+          'emSS'     : (emflipmask)&(emSSmask),
+
+          'eeOSonZ'  : (eeflipmask)&(eeonZmask) &(eeOSmask),
+          'eeOSoffZ' : (eeflipmask)&(eeoffZmask)&(eeOSmask),
+          'mmOSonZ'  : (mmflipmask)&(mmonZmask) &(mmOSmask), 
+          'mmOSoffZ' : (mmflipmask)&(mmoffZmask)&(mmOSmask), 
+          'emOS'     : (emflipmask)&(emOSmask),
+
+          'eeeSSonZ' : eeeflipmask,
+          'eeeSSoffZ': eeeflipmask,
+          'mmmSSonZ' : mmmflipmask,
+          'mmmSSoffZ': mmmflipmask,
+          'eemSSonZ' : eemflipmask,
+          'eemSSoffZ': eemflipmask,
+          'mmeSSonZ' : mmeflipmask,
+          'mmeSSoffZ': mmeflipmask,
+        }
+        isFlip['eeSSonZ'] = (eeflipmask)&(eeonZmask) &(eeSSmask)
+        isPrompt = {}
+        for keys in isFlip:
+            isPrompt[keys] = (isFlip[keys]==False)
+
+        for keys in isFlip:
+            nflip = len(isFlip[keys][isFlip[keys]])
+            nprompt = len(isPrompt[keys][isPrompt[keys]])
 
         # Variables
         invMass_eeSSonZ  = ( eeSSonZ.e0+ eeSSonZ.e1).mass
@@ -431,6 +567,12 @@ class AnalysisProcessor(processor.ProcessorABC):
         invMass_mmSSonZ  = ( mmSSonZ.m0+ mmSSonZ.m1).mass
         invMass_mmSSoffZ = (mmSSoffZ.m0+mmSSoffZ.m1).mass
         invMass_emSS     = (emSS.e+emSS.m).mass
+
+        invMass_eeOSonZ  = ( eeOSonZ.e0+ eeOSonZ.e1).mass
+        invMass_eeOSoffZ = (eeOSoffZ.e0+eeOSoffZ.e1).mass
+        invMass_mmOSonZ  = ( mmOSonZ.m0+ mmOSonZ.m1).mass
+        invMass_mmOSoffZ = (mmOSoffZ.m0+mmOSoffZ.m1).mass
+        invMass_emOS     = (emOS.e+emOS.m).mass
 
         varnames = {}
         varnames['met'] = met.pt
@@ -443,6 +585,11 @@ class AnalysisProcessor(processor.ProcessorABC):
           'mmSSonZ'   : invMass_mmSSonZ,
           'mmSSoffZ'  : invMass_mmSSoffZ,
           'emSS'      : invMass_emSS,
+          'eeOSonZ'   : invMass_eeOSonZ,
+          'eeOSoffZ'  : invMass_eeOSoffZ,
+          'mmOSonZ'   : invMass_mmOSonZ,
+          'mmOSoffZ'  : invMass_mmOSoffZ,
+          'emOS'      : invMass_emOS,
           'eemSSonZ'  : mZ_eem,
           'eemSSoffZ' : mZ_eem,
           'mmeSSonZ'  : mZ_mme,
@@ -466,8 +613,11 @@ class AnalysisProcessor(processor.ProcessorABC):
         varnames['e0eta'] = e0.eta
         varnames['m0pt' ] = m0.pt
         varnames['m0eta'] = m0.eta
+        varnames['l0pt']  = l0.pt
+        varnames['l0eta'] = l0.eta
         varnames['j0pt' ] = j0.pt
         varnames['j0eta'] = j0.eta
+<<<<<<< HEAD
         varnames['counts'] = np.ones_like(events['event'])
 
         # systematics
@@ -548,11 +698,141 @@ class AnalysisProcessor(processor.ProcessorABC):
                 values = ak.flatten(values)
                 #values=np.asarray(values)
                 hout[var].fill(eft_coeff=eft_coeffs_cut, eft_err_coeff=eft_w2_coeffs_cut, m0eta=values, sample=dataset, channel=ch, cut=lev, sumcharge=sumcharge, weight=weights_flat, systematic=syst)
-              elif var == 'j0pt'  : 
-                if lev == 'base': continue
+=======
+        varnames['jpt']   = goodJets.pt
+        varnames['jeta']  = goodJets.eta
+        varnames['counts'] = np.ones_like(events['event'])
+
+        # fill Histos
+        hout = self.accumulator.identity()
+        normweights = weights['all'].weight().flatten() # Why does it not complain about .flatten() here?
+        hout['SumOfEFTweights'].fill(eftweights, sample=dataset, SumOfEFTweights=varnames['counts'], weight=normweights)
+
+        for var, v in varnames.items():
+         for ch in channels2LSS+channels3L:
+          for lev in levels:
+            weight = weights[ ch[:3] if (ch.startswith('eee') or ch.startswith('mmm') or ch.startswith('eem') or ch.startswith('mme')) else ch[:2]].weight()
+            cuts = [ch] + [lev]
+            cut = selections.all(*(cuts))
+            weights_flat = weight[cut].flatten() # Why does it not complain about .flatten() here?
+            weights_ones = np.ones_like(weights_flat, dtype=np.int)
+            eftweightsvalues = eftweights[cut] if len(eftweights) > 0 else []
+            if var == 'invmass':
+              if   ch in ['eeeSSoffZ', 'mmmSSoffZ']: continue
+              elif ch in ['eeeSSonZ' , 'mmmSSonZ' ]: continue #values = v[ch]
+              else:
+                values = ak.flatten(v[ch][cut])
+                promptmask = isPrompt[ch][cut]
+                flipmask = isFlip[ch][cut]
+              hout['invmass'].fill(sample=dataset, channel=ch, cut=lev, invmass=values, weight=weights_flat)
+              hout['invmass'].fill(sample=dataset+'_flip', channel=ch, cut=lev, invmass=values[flipmask], weight=weights_flat[flipmask])
+            elif var == 'm3l': 
+              if ch in ['eeSSonZ', 'eeSSoffZ', 'mmSSonZ', 'mmSSoffZ', 'emSS', 'eeOSonZ', 'eeOSoffZ', 'mmOSonZ', 'mmOSoffZ', 'emOS', 'eeeSSoffZ', 'mmmSSoffZ', 'eeeSSonZ', 'mmmSSonZ']: continue
+              values = ak.flatten(v[ch][cut])
+              promptmask = isPrompt[ch][cut]
+              flipmask = isFlip[ch][cut]
+              hout['m3l'].fill(eftweightsvalues, sample=dataset, channel=ch, cut=lev, m3l=values[promptmask], weight=weights_flat[promptmask])
+              hout['m3l'].fill(eftweightsvalues, sample=dataset+'_flip', channel=ch, cut=lev, m3l=values[flipmask], weight=weights_flat[flipmask])
+            else:
+              values = v[cut]
+              promptmask = isPrompt[ch][cut]
+              flipmask = isFlip[ch][cut]
+              if   var == 'ht'    :
+                hout[var].fill(eftweightsvalues, ht=values[promptmask], sample=dataset, channel=ch, cut=lev, weight=weights_flat[promptmask])
+                hout[var].fill(eftweightsvalues, ht=values[flipmask], sample=dataset+'_flip', channel=ch, cut=lev, weight=weights_flat[flipmask])
+              elif var == 'met'   :
+                hout[var].fill(eftweightsvalues, met=values, sample=dataset, channel=ch, cut=lev, weight=weights_flat)
+                hout[var].fill(eftweightsvalues, met=values[flipmask], sample=dataset+'_flip', channel=ch, cut=lev, weight=weights_flat[flipmask])
+              elif var == 'njets' :
+                hout[var].fill(eftweightsvalues, njets=values[promptmask], sample=dataset, channel=ch, cut=lev, weight=weights_flat[promptmask])
+                hout[var].fill(eftweightsvalues, njets=values[flipmask], sample=dataset+'_flip', channel=ch, cut=lev, weight=weights_flat[flipmask])
+              elif var == 'nbtags': 
+                hout[var].fill(eftweightsvalues, nbtags=values[promptmask], sample=dataset, channel=ch, cut=lev, weight=weights_flat[promptmask])
+                hout[var].fill(eftweightsvalues, nbtags=values[flipmask], sample=dataset+'_flip', channel=ch, cut=lev, weight=weights_flat[flipmask])
+              elif var == 'counts': 
+                hout[var].fill(counts=values[promptmask], sample=dataset, channel=ch, cut=lev, weight=weights_ones[promptmask])
+                hout[var].fill(counts=values[flipmask], sample=dataset+'_flip', channel=ch, cut=lev, weight=weights_ones[flipmask])
+              elif var == 'j0eta' :
+                if lev in ['base', 'CRZ']: continue
                 values = ak.flatten(values)
+                promptmask = isPrompt[ch][cut]
+                flipmask = isFlip[ch][cut]
+                hout[var].fill(eftweightsvalues, j0eta=values[promptmask], sample=dataset, channel=ch, cut=lev, weight=weights_flat[promptmask])
+                hout[var].fill(eftweightsvalues, j0eta=values[flipmask], sample=dataset+'_flip', channel=ch, cut=lev, weight=weights_flat[flipmask])
+              elif var == 'e0pt'  : 
+                if ch in ['mmSSonZ', 'mmSSoffZ', 'mmOSonZ', 'mmOSoffZ', 'mmmSSoffZ', 'mmmSSonZ']: continue
+                values = ak.flatten(values)
+                promptmask = isPrompt[ch][cut]
+                flipmask = isFlip[ch][cut]
+                hout[var].fill(eftweightsvalues, e0pt=values[promptmask], sample=dataset, channel=ch, cut=lev, weight=weights_flat[promptmask])
+                hout[var].fill(eftweightsvalues, e0pt=values[flipmask], sample=dataset+'_flip', channel=ch, cut=lev, weight=weights_flat[flipmask])
+              elif var == 'm0pt'  : 
+                if ch in ['eeSSonZ', 'eeSSoffZ', 'eeOSonZ', 'eeOSoffZ', 'eeeSSoffZ', 'eeeSSonZ']: continue
+                values = ak.flatten(values)
+                promptmask = isPrompt[ch][cut]
+                flipmask = isFlip[ch][cut]
+                hout[var].fill(eftweightsvalues, m0pt=values[promptmask], sample=dataset, channel=ch, cut=lev, weight=weights_flat[promptmask])
+                hout[var].fill(eftweightsvalues, m0pt=values[flipmask], sample=dataset+'_flip', channel=ch, cut=lev, weight=weights_flat[flipmask])
+              elif var == 'e0eta' : 
+                if ch in ['mmSSonZ', 'mmSSoffZ', 'mmOSonZ', 'mmOSoffZ', 'mmmSSoffZ', 'mmmSSonZ']: continue
+                values = ak.flatten(values)
+                promptmask = isPrompt[ch][cut]
+                flipmask = isFlip[ch][cut]
+                hout[var].fill(eftweightsvalues, e0eta=values[promptmask], sample=dataset, channel=ch, cut=lev, weight=weights_flat[promptmask])
+                hout[var].fill(eftweightsvalues, e0eta=values[flipmask], sample=dataset+'_flip', channel=ch, cut=lev, weight=weights_flat[flipmask])
+              elif var == 'm0eta':
+                if ch in ['eeSSonZ', 'eeSSoffZ', 'eeOSonZ', 'eeOSoffZ', 'eeeSSoffZ', 'eeeSSonZ']: continue
+                values = ak.flatten(values)
+                promptmask = isPrompt[ch][cut]
+                flipmask = isFlip[ch][cut]
+                hout[var].fill(eftweightsvalues, m0eta=values[promptmask], sample=dataset, channel=ch, cut=lev, weight=weights_flat[promptmask])
+                hout[var].fill(eftweightsvalues, m0eta=values[flipmask], sample=dataset+'_flip', channel=ch, cut=lev, weight=weights_flat[flipmask])
+>>>>>>> 3589bdd07b545244c3fda0dd9808989f0d387ae8
+              elif var == 'j0pt'  : 
+                if lev in ['base', 'CRZ']: continue
+                values = ak.flatten(values)
+<<<<<<< HEAD
                 #values=np.asarray(values)
                 hout[var].fill(eft_coeff=eft_coeffs_cut, eft_err_coeff=eft_w2_coeffs_cut, j0pt=values, sample=dataset, channel=ch, cut=lev, sumcharge=sumcharge, weight=weights_flat, systematic=syst)
+=======
+                promptmask = isPrompt[ch][cut]
+                flipmask = isFlip[ch][cut]
+                hout[var].fill(eftweightsvalues, j0pt=values, sample=dataset, channel=ch, cut=lev, weight=weights_flat)
+                hout[var].fill(eftweightsvalues, j0pt=values[flipmask], sample=dataset+'_flip', channel=ch, cut=lev, weight=weights_flat[flipmask])
+              elif var == 'l0pt'  :
+                values = ak.flatten(values)
+                promptmask = isPrompt[ch][cut]
+                flipmask = isFlip[ch][cut]
+                hout[var].fill(eftweightsvalues, l0pt=values, sample=dataset, channel=ch, cut=lev, weight=weights_flat)
+                hout[var].fill(eftweightsvalues, l0pt=values[flipmask], sample=dataset+'_flip', channel=ch, cut=lev, weight=weights_flat[flipmask])
+                #if (lev == 'CRZ') & (ch == 'mmOSonZ') :  print(weights_flat)
+              elif var == 'l0eta' :
+                values = ak.flatten(values)
+                promptmask = isPrompt[ch][cut]
+                flipmask = isFlip[ch][cut]
+                hout[var].fill(eftweightsvalues, l0eta=values, sample=dataset, channel=ch, cut=lev, weight=weights_flat)
+                hout[var].fill(eftweightsvalues, l0eta=values[flipmask], sample=dataset+'_flip', channel=ch, cut=lev, weight=weights_flat[flipmask])
+              elif var == 'jpt'  : 
+                if lev in ['base', 'CRZ']: continue
+                weights_flat_jet = ak.broadcast_arrays(weights_flat, values)
+                #eftweightsvalues_jet = ak.broadcast_arrays(eftweightsvalues, values)
+                values = ak.flatten(values)
+                weights_flat_jet = ak.flatten(ak.flatten(weights_flat_jet))[:len(values)]
+                #eftweightsvalues_jet = ak.flatten(eftweightsvalues_jet)
+                promptmask = isPrompt[ch][cut]
+                flipmask = isFlip[ch][cut]
+                hout[var].fill(eftweightsvalues, jpt=values, sample=dataset, channel=ch, cut=lev, weight=weights_flat_jet)
+              elif var == 'jeta'  : 
+                if lev in ['base', 'CRZ']: continue
+                weights_flat_jet = ak.broadcast_arrays(weights_flat, values)
+                #eftweightsvalues_jet = ak.broadcast_arrays(eftweightsvalues, values)
+                values = ak.flatten(values)
+                weights_flat_jet = ak.flatten(ak.flatten(weights_flat_jet))[:len(values)]
+                #eftweightsvalues_jet = ak.flatten(eftweightsvalues_jet)
+                promptmask = isPrompt[ch][cut]
+                flipmask = isFlip[ch][cut]
+                hout[var].fill(eftweightsvalues, jeta=values, sample=dataset, channel=ch, cut=lev, weight=weights_flat_jet)
+>>>>>>> 3589bdd07b545244c3fda0dd9808989f0d387ae8
         return hout
 
     def postprocess(self, accumulator):
@@ -563,4 +843,3 @@ if __name__ == '__main__':
     outpath= './coffeaFiles/'
     samples     = load(outpath+'samples.coffea')
     topprocessor = AnalysisProcessor(samples)
-
