@@ -107,10 +107,6 @@ def isTightElec(pt, eta, dxy, dz, miniIso, sip3D, mvaTTH, elecMVA, lostHits, con
 def isPresTau(pt, eta, dxy, dz, leadTkPtOverTauPt, idAntiMu, idAntiEle, rawIso, idDecayModeNewDMs, minpt=20.0):
   kinematics = (pt>minpt)&(abs(eta)<2.3)&(dxy<1000.)&(dz<0.2)&(leadTkPtOverTauPt*pt>0.5)
   medium = (idAntiMu>0.5)&(idAntiEle>0.5)&(rawIso>0.5)&(idDecayModeNewDMs)
-<<<<<<< HEAD
-  return kinematics & medium
- 
-=======
   return kinematics# & medium
 
 
@@ -146,4 +142,4 @@ def tightSelElec(clean_and_FO_selection_TTH, mvaTTH):
 
 def tightSelMuon(clean_and_FO_selection_TTH, mediumId, mvaTTH):
   return (clean_and_FO_selection_TTH) & (mediumId>0) & (mvaTTH > 0.85)
->>>>>>> 2df0772d6b533cee040227fbab3172607875bc17
+  return kinematics & medium

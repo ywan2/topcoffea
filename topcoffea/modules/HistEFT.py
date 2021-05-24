@@ -248,31 +248,7 @@ class HistEFT(coffea.hist.Hist):
     else:
       add_dict(self._sumw2, other._sumw2)
     add_dict(self._sumw, other._sumw)
-<<<<<<< HEAD
-    add_dict(self.EFTcoeffs, other.EFTcoeffs)
-    add_dict(self.EFTerrs, other.EFTerrs)
-    #self.SetWCFit()
-    return self
-
-  def DumpFits(self, key=''):
-   """ Display all the fit parameters for all bins """
-   if key == '': 
-     for k in self.EFTcoeffs.keys(): self.DumpFits(k)
-     return
-   for fit in self.WCFit[key]:
-     fit.Dump()
-
-  def ScaleFits(self, SF, key=''):
-   """ Scale all the fits by some amount """
-   if key == '': 
-     for k in self.EFTcoeffs.keys(): self.ScaleFits(SF, k)
-     return
-   for fit in self.WCFit[key]:
-     fit.Scale(SF)  
- 
-=======
     return self 
->>>>>>> 2df0772d6b533cee040227fbab3172607875bc17
 
   def __getitem__(self, keys):
     """ Extended from parent class """
