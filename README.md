@@ -1,3 +1,4 @@
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/TopEFT/topcoffea/tutorials?filepath=tutorials%2Fintro_coffea.hist.ipynb)
 # topcoffea
 Top quark analyses using the Coffea framework
 
