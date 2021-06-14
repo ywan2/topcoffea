@@ -1,8 +1,10 @@
 name: 2021-06-16-topcoffea
 channels:
+  - anaconda
   - conda-forge
 dependencies:
   - numpy==1.20.3
   - matplotlib==3.4.2
   - pip==21.1.2
-  - coffea=0.7.3
+  - pip:
+    - coffea=0.7.3
