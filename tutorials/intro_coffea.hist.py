@@ -204,9 +204,15 @@ h.set_wilson_coefficients(np.zeros(h._nwc))
 h.values()
 
 
+# In[21]:
+
+
+h.values(overflow='all')
+
+
 # Plotting this should look the same as before, since by default the WCs are 0
 
-# In[21]:
+# In[22]:
 
 
 hist.plot1d(h, stack=True)
@@ -214,19 +220,19 @@ hist.plot1d(h, stack=True)
 
 # Now let's set them all to 1 to see that things change
 
-# In[22]:
+# In[23]:
 
 
 h.set_wilson_coefficients(np.ones(h._nwc))
 
 
-# In[23]:
+# In[24]:
 
 
 h.values()
 
 
-# In[24]:
+# In[25]:
 
 
 hist.plot1d(h, stack=True)
@@ -238,7 +244,7 @@ hist.plot1d(h, stack=True)
 
 # First, load the `SumOfEFTweights` histogram
 
-# In[25]:
+# In[26]:
 
 
 sow = hists['SumOfEFTweights'] #get histogram with sum of EFT weights
@@ -246,7 +252,7 @@ sow = hists['SumOfEFTweights'] #get histogram with sum of EFT weights
 
 # Next, set the WCs to the SM values of 0
 
-# In[26]:
+# In[27]:
 
 
 sow.set_wilson_coefficients(np.zeros(sow._nwc)) #set to SM
@@ -254,7 +260,7 @@ sow.set_wilson_coefficients(np.zeros(sow._nwc)) #set to SM
 
 # Now sum over all the samples
 
-# In[27]:
+# In[28]:
 
 
 sow = sow.sum('sample')
@@ -262,16 +268,16 @@ sow = sow.sum('sample')
 
 # Finally, get the stored value
 
-# In[28]:
+# In[29]:
 
 
-smsow = sow.values()[()][0]
+smsow = np.sum(sow.values()[()])
 print('Sum of EFT weights', smsow)
 
 
 # Now we can scale the desired histogram by $\frac{\mathcal{L}}{\sum{w_{\mathrm{event}}^{\mathrm{SM}}}}$
 
-# In[29]:
+# In[30]:
 
 
 h.set_wilson_coefficients(np.zeros(h._nwc))
@@ -280,7 +286,7 @@ print('Scaling by', wgt)
 h.scale(wgt) #2018 lumi of 59.7 fb^-1
 
 
-# In[30]:
+# In[31]:
 
 
 import mplhep
