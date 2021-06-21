@@ -1,0 +1,24 @@
+{
+  "xsec": 19.4674104,
+  "year": "2018",
+  "treeName": "Events",
+  "histAxisName": "tW",
+  "options": "",
+  "WCnames": [],
+  "files": [
+    "store/user/jrgonzal/nanoAODcrab/ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/moreMC2018_15jun2021_ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/210615_144548/0000/tree_1.root",
+    "store/user/jrgonzal/nanoAODcrab/ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/moreMC2018_15jun2021_ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/210615_144548/0000/tree_10.root",
+    "store/user/jrgonzal/nanoAODcrab/ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/moreMC2018_15jun2021_ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/210615_144548/0000/tree_2.root",
+    "store/user/jrgonzal/nanoAODcrab/ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/moreMC2018_15jun2021_ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/210615_144548/0000/tree_3.root",
+    "store/user/jrgonzal/nanoAODcrab/ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/moreMC2018_15jun2021_ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/210615_144548/0000/tree_4.root",
+    "store/user/jrgonzal/nanoAODcrab/ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/moreMC2018_15jun2021_ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/210615_144548/0000/tree_5.root",
+    "store/user/jrgonzal/nanoAODcrab/ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/moreMC2018_15jun2021_ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/210615_144548/0000/tree_6.root",
+    "store/user/jrgonzal/nanoAODcrab/ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/moreMC2018_15jun2021_ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/210615_144548/0000/tree_7.root",
+    "store/user/jrgonzal/nanoAODcrab/ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/moreMC2018_15jun2021_ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/210615_144548/0000/tree_8.root",
+    "store/user/jrgonzal/nanoAODcrab/ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/moreMC2018_15jun2021_ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/210615_144548/0000/tree_9.root"
+  ],
+  "nEvents": 6629489,
+  "nGenEvents": 373722809.83200014,
+  "nSumOfWeights": 11518444,
+  "isData": false
+}

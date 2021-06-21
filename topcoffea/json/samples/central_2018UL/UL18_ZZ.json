@@ -1,0 +1,17 @@
+{
+  "xsec": 16.523,
+  "year": "2018",
+  "treeName": "Events",
+  "histAxisName": "ZZ",
+  "options": "",
+  "WCnames": [],
+  "files": [
+    "store/user/jrgonzal/nanoAODcrab/ZZ_TuneCP5_13TeV-pythia8/moreMC2018_15jun2021_ZZ_TuneCP5_13TeV-pythia8/210615_150112/0000/tree_1.root",
+    "store/user/jrgonzal/nanoAODcrab/ZZ_TuneCP5_13TeV-pythia8/moreMC2018_15jun2021_ZZ_TuneCP5_13TeV-pythia8/210615_150112/0000/tree_2.root",
+    "store/user/jrgonzal/nanoAODcrab/ZZ_TuneCP5_13TeV-pythia8/moreMC2018_15jun2021_ZZ_TuneCP5_13TeV-pythia8/210615_150112/0000/tree_3.root"
+  ],
+  "nEvents": 976353,
+  "nGenEvents": 3907000.0,
+  "nSumOfWeights": 3907000,
+  "isData": false
+}
