@@ -1,0 +1,23 @@
+{
+  "xsec": 19.4674104,
+  "year": "2017",
+  "treeName": "Events",
+  "histAxisName": "tbarW_noFullHad_central2017",
+  "options": "",
+  "WCnames": [],
+  "files": [
+    "/store/mc/RunIISummer20UL16NanoAODAPVv2/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v9-v2/280000/A88F3DC8-6467-B846-883F-E4381BCBD326.root",
+    "/store/mc/RunIISummer20UL16NanoAODAPVv2/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v9-v2/280000/046CF6A4-B133-3448-B62C-C71FA916DB0D.root",
+    "/store/mc/RunIISummer20UL16NanoAODAPVv2/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v9-v2/280000/5ECD0E7B-7FD9-4C44-9330-9D24FC304565.root",
+    "/store/mc/RunIISummer20UL16NanoAODAPVv2/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v9-v2/280000/DE9B5204-198B-CA4C-A651-976B688C6033.root",
+    "/store/mc/RunIISummer20UL16NanoAODAPVv2/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v9-v2/280000/FFE8BC79-0FF1-DB42-8973-3748043AABF0.root",
+    "/store/mc/RunIISummer20UL16NanoAODAPVv2/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v9-v2/280000/272A57B1-B618-4D42-87A8-5DB360100C9D.root",
+    "/store/mc/RunIISummer20UL16NanoAODAPVv2/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v9-v2/280000/38405B77-81EE-164D-8C41-12D5692CB48D.root",
+    "/store/mc/RunIISummer20UL16NanoAODAPVv2/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v9-v2/280000/96CF04FC-F854-FF42-86F6-557D2C2C55D4.root",
+    "/store/mc/RunIISummer20UL16NanoAODAPVv2/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v9-v2/280000/5C2ED544-6E21-5F48-AB8F-A1B1966EF44D.root"
+  ],
+  "nEvents": 2300000,
+  "nGenEvents": 2300000,
+  "nSumOfWeights": 74766343.79400024,
+  "isData": false
+}
