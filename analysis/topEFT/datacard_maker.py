@@ -63,8 +63,7 @@ class DatacardMaker():
         if isinstance(charges, str): charge = charges
         else: charge = ''
         charge = 'p' if charge == 'ch+' else 'm'
-        result = [e for e in re.split("[^0-9]", cuts) if e != '']
-        maxb = str(max(map(int, result))) + 'b'
+        maxb = max([e for e in re.split("\+?b\w?", cuts) if 'j' not in e]) + 'b'
         if systematics == 'nominal': sys = ''
         else: sys = '_'+systematics
         if variable == 'njets':
@@ -387,11 +386,12 @@ if __name__ == '__main__':
     card.analyzeChannel(channel='3l', cuts='2+bm', charges='ch-', systematics='nominal', variable='njets')
     card.analyzeChannel(channel='3l_sfz', cuts='2+bm', charges=['ch+','ch-'], systematics='nominal', variable='njets')
     card.analyzeChannel(channel='4l', cuts='1+bm2+bl', charges=['ch+','ch0','ch-'], systematics='nominal', variable='njets')
-    card.analyzeChannel(channel='2lss', cuts='1+bm2+bl', charges='ch+', systematics='nominal', variable='ht')
-    card.analyzeChannel(channel='2lss', cuts='1+bm2+bl', charges='ch-', systematics='nominal', variable='ht')
-    card.analyzeChannel(channel='3l', cuts='1bm', charges='ch+', systematics='nominal', variable='ht')
-    card.analyzeChannel(channel='3l', cuts='1bm', charges='ch-', systematics='nominal', variable='ht')
-    card.analyzeChannel(channel='3l', cuts='2+bm', charges='ch+', systematics='nominal', variable='ht')
-    card.analyzeChannel(channel='3l', cuts='2+bm', charges='ch-', systematics='nominal', variable='ht')
-    card.analyzeChannel(channel='3l_sfz', cuts='2+bm', charges=['ch+','ch-'], systematics='nominal', variable='ht')
-    card.analyzeChannel(channel='4l', cuts='1+bm2+bl', charges=['ch+','ch0','ch-'], systematics='nominal', variable='ht')
+    for var in ['ht','j0pt', 'm0pt', 'e0pt']:
+        card.analyzeChannel(channel='2lss', cuts='1+bm2+bl4j', charges='ch+', systematics='nominal', variable=var)
+        card.analyzeChannel(channel='2lss', cuts='1+bm2+bl4j', charges='ch-', systematics='nominal', variable=var)
+        card.analyzeChannel(channel='3l', cuts='1bm2j', charges='ch+', systematics='nominal', variable=var)
+        card.analyzeChannel(channel='3l', cuts='1bm2j', charges='ch-', systematics='nominal', variable=var)
+        card.analyzeChannel(channel='3l', cuts='2+bm2j', charges='ch+', systematics='nominal', variable=var)
+        card.analyzeChannel(channel='3l', cuts='2+bm2j', charges='ch-', systematics='nominal', variable=var)
+        card.analyzeChannel(channel='3l_sfz', cuts='2+bm2j', charges=['ch+','ch-'], systematics='nominal', variable=var)
+        card.analyzeChannel(channel='4l', cuts='1+bm2+bl4j', charges=['ch+','ch0','ch-'], systematics='nominal', variable=var)
