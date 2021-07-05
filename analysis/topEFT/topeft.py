@@ -484,11 +484,14 @@ class AnalysisProcessor(processor.ProcessorABC):
         selections.add('ch-', (sumcharge<0))
         selections.add('ch0', (sumcharge==0))
 
-        levels = ['base', '1+bm2+bl', '1bm', '2+bm']
-        selections.add('base',     (nElec+nMuon>=2))
-        selections.add('1+bm2+bl', (nElec+nMuon>=2)&((nbtagsm>=1)&(nbtagsl>=2)))
-        selections.add('1bm',      (nElec+nMuon>=2)&(nbtagsm==1))
-        selections.add('2+bm',     (nElec+nMuon>=2)&(nbtagsm>=2))
+        levels = ['base', '1+bm2+bl', '1bm', '2+bm', '1+bm2+bl4j', '1bm2j', '2+bm2j']
+        selections.add('base',       (nElec+nMuon>=2))
+        selections.add('1+bm2+bl',   (nElec+nMuon>=2)&((nbtagsm>=1)&(nbtagsl>=2)))
+        selections.add('1+bm2+bl4j', (nElec+nMuon>=2)&((nbtagsm>=1)&(nbtagsl>=2))&(njets>=4))
+        selections.add('1bm',        (nElec+nMuon>=2)&(nbtagsm==1))
+        selections.add('1bm2j',      (nElec+nMuon>=2)&(nbtagsm==1)&(njets>=2))
+        selections.add('2+bm',       (nElec+nMuon>=2)&(nbtagsm>=2))
+        selections.add('2+bm2j',     (nElec+nMuon>=2)&(nbtagsm>=2)&(njets>=2))
 
         # Variables
         invMass_eeSSonZ  = ( eeSSonZ.e0+ eeSSonZ.e1).mass
