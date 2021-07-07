@@ -94,7 +94,7 @@ class DatacardMaker():
                 elif '3l' in channel: h_base = h_base.rebin('njets', hist.Bin("njets",  "Jet multiplicity ", [2,3,4,5]))
                 elif '4l' in channel: h_base = h_base.rebin('njets', hist.Bin("njets",  "Jet multiplicity ", [2,3,4]))
             elif variable == 'ht':
-                h_base = h_base.rebin('ht', hist.Bin("ht", "H$_{T}$ (GeV)", 10, 0, 1000))
+                h_base = h_base.rebin('ht', hist.Bin("ht", "H_{T} (GeV)", 10, 0, 1000))
             #Save the SM plot
             h_sm = h_base#.copy()
             h_sm.set_sm()
