@@ -14,7 +14,7 @@ from ROOT import TFile, TH1D
 class DatacardMaker():
     def __init__(self, infile='', year=2018, lumiJson='topcoffea/json/lumi.json', do_nuisance=False):
         self.hists = {}
-        self.rename = {'tZq': 'tllq', 'tllq_privateUL17': 'tllq', 'ttZ': 'ttll', 'ttll_TOP-19-001': 'ttll', 'ttW': 'ttlnu', 'ttGJets': 'convs', 'WZ': 'Diboson', 'WWW': 'Triboson', 'ttHnobb': 'ttH', 'ttH_TOP-19-001': 'ttH', "tHq_privateUL17": "tHq", "tllq_privateUL17": "tllq", "ttHJet_privateUL17": "ttH", "ttllJet_privateUL17": "ttll", "ttlnuJet_privateUL17": "ttlnu"} #Used to rename things like ttZ to ttll and ttHnobb to ttH
+        self.rename = {'tZq': 'tllq', 'tllq_privateUL17': 'tllq', 'ttZ': 'ttll', 'ttll_TOP-19-001': 'ttll', 'ttW': 'ttlnu', 'ttGJets': 'convs', 'WZ': 'Diboson', 'WWW': 'Triboson', 'ttHnobb': 'ttH', 'ttH_TOP-19-001': 'ttH', "tHq_privateUL17": "tHq", "tllq_privateUL17": "tllq", "ttHJet_privateUL17": "ttH", "ttllJet_privateUL17": "ttll", "ttlnuJet_privateUL17": "ttlnu", "tttt_privateUL17": "tttt"} #Used to rename things like ttZ to ttll and ttHnobb to ttH
         self.syst_terms =['LF', 'JES', 'MURMUF', 'CERR1', 'MUR', 'CERR2', 'PSISR', 'HFSTATS1', 'Q2RF', 'FR_FF', 'HFSTATS2', 'LFSTATS1', 'TRG', 'LFSTATS2', 'MUF', 'PDF', 'HF', 'PU', 'LEPID']
         self.ch2lss = ['eeSSonZ', 'eeSSoffZ', 'mmSSonZ', 'mmSSoffZ', 'emSS']
         self.ch3l = ['eemSSoffZ', 'mmeSSoffZ', 'eeeSSoffZ', 'mmmSSoffZ']
@@ -67,12 +67,12 @@ class DatacardMaker():
         if systematics == 'nominal': sys = ''
         else: sys = '_'+systematics
         if variable == 'njets':
-            if isinstance(charge, str):
+            if isinstance(charges, str):
                 cat = '_'.join([channel, charge, maxb])  
             else:
                 cat = '_'.join([channel, maxb])  
         else:
-            if isinstance(charge, str):
+            if isinstance(charges, str):
                 cat = '_'.join([channel, charge, maxb, variable])
             else:
                 cat = '_'.join([channel, maxb, variable])
@@ -113,12 +113,12 @@ class DatacardMaker():
                     if np.sum(h_lin.values()[()]) > self.tolerance:
                         fout[pname+name] = hist.export1d(h_lin)
                         if variable == 'njets':
-                            if isinstance(charge, str):
+                            if isinstance(charges, str):
                                 cat = '_'.join([channel, charge, ])  
                             else:
                                 cat = '_'.join([channel, maxb])  
                         else:
-                            if isinstance(charge, str):
+                            if isinstance(charges, str):
                                 '_'.join([channel, charge, maxb, variable])
                             else:
                                 '_'.join([channel, maxb, variable])
@@ -167,12 +167,12 @@ class DatacardMaker():
         if systematics == 'nominal': sys = ''
         else: sys = '_'+systematics
         if variable == 'njets':
-            if isinstance(charge, str):
+            if isinstance(charges, str):
                 cat = '_'.join([channel, charge, nbjet])  
             else:
                 cat = '_'.join([channel, nbjet])  
         else:
-            if isinstance(charge, str):
+            if isinstance(charges, str):
                 cat = '_'.join([channel, charge, nbjet, variable])
             else:
                 cat = '_'.join([channel, nbjet, variable])
