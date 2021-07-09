@@ -30,7 +30,7 @@ with open(lumiJson) as jf:
 processDic = {
   'Nonprompt' : 'TTTo2L2Nu,tW_noFullHad, tbarW_noFullHad, WJetsToLNu_MLM, WWTo2L2Nu',
   'DY' : 'DYJetsToLL_M_10to50_MLM, DYJetsToLL_M_50_a',
-  'Other': 'WWW,WZG,WWZ,WZZ,ZZZ,tttt,ttWW,ttWZ,ttZH,ttZZ,ttHH,tZq,TTG,tllq_privateUL17',
+  'Other': 'WWW,WZG,WWZ,WZZ,ZZZ,tttt,ttWW,ttWZ,ttZH,ttZZ,ttHH,tZq,TTG,tllq_privateUL17,tttt_privateUL17',
   'WZ' : 'WZTo2L2Q,WZTo3LNu',
   'ZZ' : 'ZZTo2L2Nu,ZZTo2L2Q,ZZTo4L',
   'ttW': 'TTWJetsToLNu,ttlnuJet_privateUL17',
