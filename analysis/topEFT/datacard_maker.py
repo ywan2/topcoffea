@@ -14,7 +14,7 @@ from ROOT import TFile, TH1D
 class DatacardMaker():
     def __init__(self, infile='', year=2018, lumiJson='topcoffea/json/lumi.json', do_nuisance=False):
         self.hists = {}
-        self.rename = {'tZq': 'tllq', 'tllq_privateUL17': 'tllq', 'ttZ': 'ttll', 'ttll_TOP-19-001': 'ttll', 'ttW': 'ttlnu', 'ttGJets': 'convs', 'WZ': 'Diboson', 'WWW': 'Triboson', 'ttHnobb': 'ttH', 'ttH_TOP-19-001': 'ttH', "tHq_privateUL17": "tHq", "tllq_privateUL17": "tllq", "ttHJet_privateUL17": "ttH", "ttllJet_privateUL17": "ttll", "ttlnuJet_privateUL17": "ttlnu", "tttt_privateUL17": "tttt"} #Used to rename things like ttZ to ttll and ttHnobb to ttH
+        self.rename = {'tZq': 'tllq', 'tllq_privateUL17': 'tllq', 'ttZ': 'ttll'} #Used to rename things like ttZ to ttll and ttHnobb to ttH
         self.syst_terms =['LF', 'JES', 'MURMUF', 'CERR1', 'MUR', 'CERR2', 'PSISR', 'HFSTATS1', 'Q2RF', 'FR_FF', 'HFSTATS2', 'LFSTATS1', 'TRG', 'LFSTATS2', 'MUF', 'PDF', 'HF', 'PU', 'LEPID']
         self.ch2lss = ['eeSSonZ', 'eeSSoffZ', 'mmSSonZ', 'mmSSoffZ', 'emSS']
         self.ch3l = ['eemSSoffZ', 'mmeSSoffZ', 'eeeSSoffZ', 'mmmSSoffZ']
@@ -38,6 +38,8 @@ class DatacardMaker():
 
         #Get list of samples and cut levels from histograms
         self.samples = list({k[0]:0 for k in self.hists['njets'].values().keys()})
+        rename = {re.split('(Jet)?_[a-zA-Z]*1[6-8]', l)[0] : l for l in self.samples}
+        self.rename = {**self.rename, **rename}
         self.levels = list({k[2]:0 for k in self.hists['njets'].values().keys()})
         self.charge = list({k[3]:0 for k in self.hists['njets'].values().keys()})
         self.syst = list({k[4]:0 for k in self.hists['njets'].values().keys()})
@@ -94,7 +96,7 @@ class DatacardMaker():
                 elif '3l' in channel: h_base = h_base.rebin('njets', hist.Bin("njets",  "Jet multiplicity ", [2,3,4,5]))
                 elif '4l' in channel: h_base = h_base.rebin('njets', hist.Bin("njets",  "Jet multiplicity ", [2,3,4]))
             elif variable == 'ht':
-                h_base = h_base.rebin('ht', hist.Bin("ht", "H_{T} (GeV)", 10, 0, 1000))
+                h_base = h_base.rebin('ht', hist.Bin("ht", "H$_{T}$ (GeV)", 50, 0, 1000))
             #Save the SM plot
             h_sm = h_base#.copy()
             h_sm.set_sm()
