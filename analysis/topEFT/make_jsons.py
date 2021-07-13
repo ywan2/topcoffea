@@ -373,6 +373,18 @@ central_UL17_bkg_dict = {
         "xsecName": "ST",
     },
 
+    "UL17_t" : {
+        "path" : "/ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM",
+        "histAxisName": "t_centralUL17",
+        "xsecName": "t",
+    },
+
+    "UL17_tbar" : {
+        "path" : "/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_new_pmx_102X_mc2017_realistic_v8-v1/NANOAODSIM",
+        "histAxisName": "tbar_centralUL17",
+        "xsecName": "tbar",
+    },
+
     "UL17_tbarW" : {
         "path" : "/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODAPVv2-106X_mcRun2_asymptotic_preVFP_v9-v2/NANOAODSIM",
         "histAxisName": "tbarW_noFullHad_central2017",
@@ -493,19 +505,6 @@ central_UL17_bkg_dict = {
         "xsecName": "ttHnobb",
     },
 }
-''' CANNOT FIND single top UL17, only tW
-    "UL17_ST" : {
-        "path" : "/ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/*UL*/NANOAODSIM",
-        "histAxisName": "ST_centralUL17",
-        "xsecName": "ST",
-    },
-
-    "UL17_ST" : {
-        "path" : "/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/*UL*/NANOAODSIM",
-        "histAxisName": "ST_centralUL17",
-        "xsecName": "ST",
-    },
-'''
 
 central_UL18_dict = {
     "UL18_ttHnobb" : {
