@@ -231,7 +231,7 @@ class DatacardMaker():
                 allyields[name] = h_sm.Integral()
                 if allyields[name] < 0:
                     allyields[name] = 0.
-                processSyst(h_sm, systMap,fout)
+                #processSyst(h_sm, systMap,fout)
             for n,wc in enumerate(self.coeffs):
                 name = '_'.join([pname[:-1],'lin',wc])
                 if name not in d_hists:
@@ -247,7 +247,7 @@ class DatacardMaker():
                     if allyields[name] < 0:
                         allyields[name] = 0.
 
-                    processSyst(h_lin, systMap,fout)
+                    #processSyst(h_lin, systMap,fout)
                 name = '_'.join([pname[:-1],'quad',wc])
                 if name not in d_hists:
                     print(f'Histogram {name} not found! Probably below the tolerance. If so, ignore this message!')
@@ -264,7 +264,7 @@ class DatacardMaker():
                     allyields[name] = h_quad.Integral()
                     if allyields[name] < 0:
                         allyields[name] = 0.
-                    processSyst(h_quad, systMap,fout)
+                    #processSyst(h_quad, systMap,fout)
 
                 for wc2 in [self.coeffs[w2] for w2 in range(n)]:
                     name = '_'.join([pname[:-1],'quad_mixed',wc,wc2])
@@ -280,7 +280,7 @@ class DatacardMaker():
                         allyields[name] = h_mix.Integral()
                         if allyields[name] < 0:
                             allyields[name] = 0.
-                        processSyst(h_mix, systMap,fout)
+                        #processSyst(h_mix, systMap,fout)
 
         #Write datacard
         if systematics != 'nominal':
