@@ -38,8 +38,9 @@ class DatacardMaker():
 
         #Get list of samples and cut levels from histograms
         self.samples = list({k[0]:0 for k in self.hists['njets'].values().keys()})
-        rename = {re.split('(Jet)?_[a-zA-Z]*1[6-8]', l)[0] : l for l in self.samples}
+        rename = {l: re.split('(Jet)?_[a-zA-Z]*1[6-8]', l)[0] for l in self.samples}
         self.rename = {**self.rename, **rename}
+        print(self.rename)
         self.levels = list({k[2]:0 for k in self.hists['njets'].values().keys()})
         self.charge = list({k[3]:0 for k in self.hists['njets'].values().keys()})
         self.syst = list({k[4]:0 for k in self.hists['njets'].values().keys()})
@@ -380,6 +381,7 @@ if __name__ == '__main__':
     card = DatacardMaker(pklfile, year, lumiJson, do_nuisance)
     card.read()
     card.buildWCString()
+    '''
     card.analyzeChannel(channel='2lss', cuts='1+bm2+bl4j', charges='ch+', systematics='nominal', variable='njets')
     card.analyzeChannel(channel='2lss', cuts='1+bm2+bl4j', charges='ch-', systematics='nominal', variable='njets')
     card.analyzeChannel(channel='3l', cuts='1bm2j', charges='ch+', systematics='nominal', variable='njets')
@@ -388,7 +390,8 @@ if __name__ == '__main__':
     card.analyzeChannel(channel='3l', cuts='2+bm2j', charges='ch-', systematics='nominal', variable='njets')
     card.analyzeChannel(channel='3l_sfz', cuts='2+bm2j', charges=['ch+','ch-'], systematics='nominal', variable='njets')
     card.analyzeChannel(channel='4l', cuts='1+bm2+bl2j', charges=['ch+','ch0','ch-'], systematics='nominal', variable='njets')
-    for var in ['ht','j0pt', 'm0pt', 'e0pt']:
+    '''
+    for var in ['njets','ht']:#,'j0pt', 'm0pt', 'e0pt']:
         card.analyzeChannel(channel='2lss', cuts='1+bm2+bl4j', charges='ch+', systematics='nominal', variable=var)
         card.analyzeChannel(channel='2lss', cuts='1+bm2+bl4j', charges='ch-', systematics='nominal', variable=var)
         card.analyzeChannel(channel='3l', cuts='1bm2j', charges='ch+', systematics='nominal', variable=var)
