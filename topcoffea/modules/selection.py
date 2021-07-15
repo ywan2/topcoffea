@@ -156,7 +156,13 @@ def passTrigger(df, cat, isData=False, dataName=''):
   df = df.HLT
   if not isData: 
     paths = triggersForFinalState[cat]['MC']
-    for path in paths: tpass = tpass | df[path]
+    for path in paths:
+      try:
+        tpass = tpass | df[path]
+      except ValueError:
+        print("Warning! Trigger not in data. Skipping...")
+        print(path)
+      
   else:
     passTriggers    = triggersForFinalState[cat][dataName] if dataName in triggersForFinalState[cat].keys() else []
     notPassTriggers = triggersNotForFinalState[cat][dataName] if dataName in triggersNotForFinalState[cat].keys() else []
