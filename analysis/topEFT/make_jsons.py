@@ -469,7 +469,7 @@ central_UL17_bkg_dict = {
         "xsecName": "WZZ",
     },
 
-    "UL17_ZZ_13TeV_powheg" : {
+    "UL17_ZZ" : {
         "path" : "/ZZ_TuneCP5_13TeV-pythia8/RunIISummer20UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM",
         "histAxisName": "ZZTo4L_centralUL17",
         "xsecName": "ZZTo4L",
@@ -487,16 +487,10 @@ central_UL17_bkg_dict = {
         "xsecName": "ZZZ",
     },
 
-    "UL17_tZq_ll_4f_ckm_NLO" : {
+    "UL17_tZq" : {
         "path" : "/tZq_ll_4f_ckm_NLO_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM",
         "histAxisName": "tZq_centralUL17",
         "xsecName": "tZq",
-    },
-
-    "UL17_ttHJetToNonbb_M125" : {
-        "path" : "/ttHJetToNonbb_M125_TuneCP5_13TeV_amcatnloFXFX_madspin_pythia8/RunIISummer20UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM",
-        "histAxisName": "ttHnobb_centralUL17",
-        "xsecName": "ttHnobb",
     },
 }
 
