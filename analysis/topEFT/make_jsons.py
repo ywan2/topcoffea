@@ -386,13 +386,13 @@ central_UL17_bkg_dict = {
     },
 
     "UL17_tbarW" : {
-        "path" : "/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODAPVv2-106X_mcRun2_asymptotic_preVFP_v9-v2/NANOAODSIM",
+        "path" : "/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM",
         "histAxisName": "tbarW_noFullHad_central2017",
         "xsecName": "tbarW_noFullHad",
     },
 
     "UL17_tW" : {
-        "path" : "/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODAPVv2-106X_mcRun2_asymptotic_preVFP_v9-v2/NANOAODSIM",
+        "path" : "/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM",
         "histAxisName": "tW_noFullHad_central2017",
         "xsecName": "tW_noFullHad",
     },
