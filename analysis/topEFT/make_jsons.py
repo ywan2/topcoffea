@@ -374,26 +374,26 @@ central_UL17_bkg_dict = {
     },
 
     "UL17_t" : {
-        "path" : "/ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM",
+        "path" : "/ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer19UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM",
         "histAxisName": "t_centralUL17",
         "xsecName": "t",
     },
 
     "UL17_tbar" : {
-        "path" : "/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_new_pmx_102X_mc2017_realistic_v8-v1/NANOAODSIM",
+        "path" : "/ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer19UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM",
         "histAxisName": "tbar_centralUL17",
         "xsecName": "tbar",
     },
 
     "UL17_tbarW" : {
-        "path" : "/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM",
-        "histAxisName": "tbarW_noFullHad_central2017",
+        "path" : "/ST_tW_antitop_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM",
+        "histAxisName": "tbarW_noFullHad_centralUL17",
         "xsecName": "tbarW_noFullHad",
     },
 
     "UL17_tW" : {
-        "path" : "/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM",
-        "histAxisName": "tW_noFullHad_central2017",
+        "path" : "/ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM",
+        "histAxisName": "tW_noFullHad_centralUL17",
         "xsecName": "tW_noFullHad",
     },
 
@@ -410,14 +410,14 @@ central_UL17_bkg_dict = {
     },
 
     "UL17_TTWJetsToLNu" : {
-        "path" : "/TTWJetsToLNu_TuneCP5_PSweights_13TeV-amcatnloFXFX-madspin-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM",
-        "histAxisName": "TTWJetsToLNu_central2017",
+        "path" : "/TTWJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8/RunIISummer20UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM",
+        "histAxisName": "TTWJetsToLNu_centralUL17",
         "xsecName": "TTWJetsToLNu",
     },
 
     "UL17_TTZToLLNuNu" : {
-        "path" : "/TTZToLLNuNu_M-10_TuneCP5_PSweights_13TeV-amcatnlo-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM",
-        "histAxisName": "TTZToLLNuNu_central2017",
+        "path" : "/TTZToLLNuNu_M-10_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM",
+        "histAxisName": "TTZToLLNuNu_centralUL17",
         "xsecName": "TTZToLLNuNu_M_10",
     },
 
@@ -427,9 +427,9 @@ central_UL17_bkg_dict = {
         "xsecName": "WJetsToLNu",
     },
 
-    "UL17_WWTo2L2Nu_NNPDF31" : {
-        "path" : "/WWTo2L2Nu_NNPDF31_TuneCP5_13TeV-powheg-pythia8/RunIIAutumn18NanoAODv7-Nano02Apr2020_102X_upgrade2018_realistic_v21-v1/NANOAODSIM",
-        "histAxisName": "WWTo2L2Nu_central2017",
+    "UL17_WWTo2L2Nu" : {
+        "path" : "/WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM",
+        "histAxisName": "WWTo2L2Nu_centralUL17",
         "xsecName": "WWTo2L2Nu",
     },
 
@@ -452,32 +452,26 @@ central_UL17_bkg_dict = {
     },
 
     "UL17_WZTo3LNu" : {
-        "path" : "/WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_new_pmx_94X_mc2017_realistic_v14-v1/NANOAODSIM",
-        "histAxisName": "WZTo3LNu_central2017",
+        "path" : "/WZ_TuneCP5_13TeV-pythia8/RunIISummer20UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM",
+        "histAxisName": "WZTo3LNu_centralUL17",
         "xsecName": "WZTo3LNu",
     },
 
     "UL17_WZZ" : {
-        "path" : "/WZZ_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL18NanoAODv2-106X_upgrade2018_realistic_v15_L1v1_ext1-v1/NANOAODSIM",
-        "histAxisName": "WZZ_central2017",
+        "path" : "/WZZ_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM",
+        "histAxisName": "WZZ_centralUL17",
         "xsecName": "WZZ",
     },
 
-    "UL17_ZZTo4L_13TeV_powheg" : {
-        "path" : "/ZZTo4L_13TeV_powheg_pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM",
-        "histAxisName": "ZZTo4L_central2017",
-        "xsecName": "ZZTo4L",
+    "UL17_WZZ_ext" : {
+        "path" : "/WZZ_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL17NanoAODv2-106X_mc2017_realistic_v8_ext1-v1/NANOAODSIM",
+        "histAxisName": "WZZ_centralUL17",
+        "xsecName": "WZZ",
     },
 
-    "UL17_ZZTo4L_13TeV_powheg" : {
-        "path" : "/ZZTo4L_13TeV_powheg_pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8_ext1-v1/NANOAODSIM",
-        "histAxisName": "ZZTo4L_central2017",
-        "xsecName": "ZZTo4L",
-    },
-
-    "UL17_ZZTo4L_13TeV_powheg" : {
-        "path" : "/ZZTo4L_13TeV_powheg_pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8_ext2-v1/NANOAODSIM",
-        "histAxisName": "ZZTo4L_central2017",
+    "UL17_ZZ_13TeV_powheg" : {
+        "path" : "/ZZ_TuneCP5_13TeV-pythia8/RunIISummer20UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM",
+        "histAxisName": "ZZTo4L_centralUL17",
         "xsecName": "ZZTo4L",
     },
 
@@ -494,8 +488,8 @@ central_UL17_bkg_dict = {
     },
 
     "UL17_tZq_ll_4f_ckm_NLO" : {
-        "path" : "/tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v2/NANOAODSIM",
-        "histAxisName": "tZq_central2017",
+        "path" : "/tZq_ll_4f_ckm_NLO_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL17NanoAODv2-106X_mc2017_realistic_v8-v1/NANOAODSIM",
+        "histAxisName": "tZq_centralUL17",
         "xsecName": "tZq",
     },
 
