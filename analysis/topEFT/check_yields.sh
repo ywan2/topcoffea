@@ -11,8 +11,8 @@ REF_FILE_NAME="test/ref_yields.json"
 printf "Activating conda environment..."
 #unset PYTHONPATH
 #eval "$(conda shell.bash hook)"
-#conda activate test-env-01
-source activate test-env-01 
+conda activate test-env-01
+#source activate test-env-01 
 
 # Run the processor
 printf "Running processor..."
