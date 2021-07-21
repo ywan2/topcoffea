@@ -20,7 +20,7 @@ conda create myenv
 #conda activate test-env-01
 #source activate test-env-01 
 
-conda run -n myenv python my_awesome_app.py
+conda run -n myenv python myenv.py
 
 # Run the processor
 printf "Running processor..."
