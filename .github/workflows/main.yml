@@ -25,6 +25,10 @@ jobs:
       - name: Install package
         run: |
           pip install -e .
+      - name: activate conda environment
+        run: |
+          unset PYTHONPATH
+          conda activate test-env-01
       - name: Run processors over test files
         run: |
           cd analysis/topEFT
