@@ -25,9 +25,9 @@ jobs:
       - name: Install package
         run: |
           pip install -e .
-      - name: Initiate conda
+      - name: Install conda
         run: |
-          conda init analysis/topEFT/check_yields.sh
+          bash conda-install.sh
       - name: Run processors over test files
         run: |
           cd analysis/topEFT

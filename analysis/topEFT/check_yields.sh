@@ -7,9 +7,10 @@ OUT_FILE_NAME="output_check_yields"
 # The json we want to compare against
 REF_FILE_NAME="test/ref_yields.json"
 
-# Activate conda environment
-printf "activating conda environment..."
+# Activate conda envirnoment
+printf "Activating conda environment..."
 unset PYTHONPATH
+# bash conda-install.sh
 conda activate test-env-01
 
 # Run the processor
