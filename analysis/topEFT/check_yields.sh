@@ -12,7 +12,7 @@ REF_FILE_NAME="test/ref_yields.json"
 unset PYTHONPATH
 #eval "$(conda shell.bash hook)"
 
-#conda create myenv
+conda create myenv
 
 #conda init bash
 #source ~/.bashrc    # <- !!!
@@ -20,11 +20,11 @@ unset PYTHONPATH
 #conda activate test-env-01
 #source activate test-env-01 
 
-#conda run -n myenv python myenv.py
+conda run -n myenv python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
 
 # Run the processor
-printf "Running processor..."
-time python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
+#printf "Running processor..."
+#time python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
 
 # Make the jsons
 printf "Making yields json from pkl..."
