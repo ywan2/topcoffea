@@ -22,6 +22,11 @@ jobs:
         run: |
           # Install into base environment to avoid issue of environment variables not persisting between steps in a workflow, see https://autobencoder.com/2020-08-24-conda-actions/
           conda env update --file environment.yml --name base
+      - name: Activate conda environment
+        run: |
+          cd analysis/topEFT
+          chmod +x ./check_yields_2.sh
+          ./check_yields_2.sh
       - name: Install package
         run: |
           pip install -e .

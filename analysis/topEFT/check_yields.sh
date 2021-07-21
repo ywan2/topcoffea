@@ -8,9 +8,11 @@ OUT_FILE_NAME="output_check_yields"
 REF_FILE_NAME="test/ref_yields.json"
 
 # Activate uonda envirnoment
-#printf "Activating conda environment..."
+printf "Activating conda environment..."
 unset PYTHONPATH
 #eval "$(conda shell.bash hook)"
+
+
 
 conda create myenv
 
