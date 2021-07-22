@@ -25,6 +25,8 @@ jobs:
         run: |
           # Install into base environment to avoid issue of environment variables not persisting between steps in a workflow, see https://autobencoder.com/2020-08-24-conda-actions/
           conda env update --file environment.yml --name base
+          CONDA_BASE=$(conda info --base)
+          . $CONDA_BASE/etc/profile.d/conda.sh
       - name: activate conda 
         run: |
           conda activate base
