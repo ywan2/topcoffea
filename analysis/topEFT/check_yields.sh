@@ -13,7 +13,7 @@ unset PYTHONPATH
 #eval "$(conda shell.bash hook)"
 
 export PYTHONPATH=
-conda init bash
+
 # Activate the Conda shell hooks without starting a new shell.
 CONDA_BASE=$(conda info --base)
 . $CONDA_BASE/etc/profile.d/conda.sh
@@ -25,10 +25,10 @@ conda install -y -c conda-forge coffea ndcctools conda-pack xrootd uproot
 
 #conda create myenv
 
-#conda init bash
+conda init bash
 #source ~/.bashrc    # <- !!!
-#conda activate myenv 
-#conda activate test-env-01
+conda activate bash 
+
 #source activate test-env-01 
 
 conda run -n myenv python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
