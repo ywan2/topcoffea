@@ -13,7 +13,7 @@ unset PYTHONPATH
 #eval "$(conda shell.bash hook)"
 
 export PYTHONPATH=
-
+conda init bash
 # Activate the Conda shell hooks without starting a new shell.
 CONDA_BASE=$(conda info --base)
 . $CONDA_BASE/etc/profile.d/conda.sh
