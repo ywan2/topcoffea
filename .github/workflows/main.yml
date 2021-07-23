@@ -29,10 +29,6 @@ jobs:
       - name: Install dependencies
         run: |
           export PYTHONPATH=
- # Install into base environment to avoid issue of environment variables not persisting between steps in a workflow, see https://autobencoder.com/2020-08-24-conda-actions/
- #conda env update --file environment.yml --name base
- # Activate the Conda shell hooks without starting a new shell.
-          CONDA_BASE=$(conda info --base)
           . $CONDA_BASE/etc/profile.d/conda.sh
           echo "*** Install Conda and Pip packages"
           conda update -n base -c defaults conda
@@ -43,6 +39,10 @@ jobs:
      # - name: Install package
      #   run: |
      #     pip install -e .
+     #
+     #      # Install into base environment to avoid issue of environment variables not persisting between steps in a workflow, see https://autobencoder.com/2020-08-24-conda-actions/
+     #       #conda env update --file environment.yml --name base
+     #        # Activate the Conda shell hooks without starting a new shell.
       - name: Run processors over test files
         run: |
           cd analysis/topEFT
