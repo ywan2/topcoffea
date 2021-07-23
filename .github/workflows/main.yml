@@ -31,7 +31,6 @@ jobs:
  # Install into base environment to avoid issue of environment variables not persisting between steps in a workflow, see https://autobencoder.com/2020-08-24-conda-actions/
  #conda env update --file environment.yml --name base
  #conda update conda
-
           export PYTHONPATH=
  # Activate the Conda shell hooks without starting a new shell.
           CONDA_BASE=$(conda info --base)
