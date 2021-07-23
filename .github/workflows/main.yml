@@ -28,21 +28,26 @@ jobs:
 
       - name: Install dependencies
         run: |
+          printf "Activating conda environment..."
           OUT_FILE_NAME="output_check_yields"
           REF_FILE_NAME="test/ref_yields.json"
           unset PYTHONPATH
           export PYTHONPATH=
           CONDA_BASE=$(conda info --base)
           . $CONDA_BASE/etc/profile.d/conda.sh
+          echo "*** Install Conda and Pip packages"
           conda update -n base -c defaults conda
           conda create -y --name coffea-env
           conda activate coffea-env
           conda install -y python=3.8.3 six dill
           conda install -y -c conda-forge coffea ndcctools conda-pack xrootd uproot
+          printf "Running processor..."
           time python analysis/topEFT/run.py topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
+          printf "Making yields json from pkl..."
           python analysis/topEFT/get_yield_json.py -f histos/${OUT_FILE_NAME}.pkl.gz -n ${OUT_FILE_NAME} --quiet
+          printf "Comparing yields agains reference..."
           python analysis/topEFT/comp_yields.py ${REF_FILE_NAME} ${OUT_FILE_NAME}.json -t1 "Ref yields" -t2 "New yields" --quiet
-
+          echo $?
      # - name: Install package
      #   run: |
      #     pip install -e .
