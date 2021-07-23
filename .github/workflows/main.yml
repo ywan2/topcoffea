@@ -44,9 +44,10 @@ jobs:
 
       - name: Run processors over test files
         run: |
-          time python analysis/topEFT/run.py topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
-          python analysis/topEFT/get_yield_json.py -f histos/${OUT_FILE_NAME}.pkl.gz -n ${OUT_FILE_NAME} --quiet
-          python analysis/topEFT/comp_yields.py ${REF_FILE_NAME} ${OUT_FILE_NAME}.json -t1 "Ref yields" -t2 "New yields" --quiet
+          cd analysis/topEFT
+          time python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
+          python get_yield_json.py -f histos/${OUT_FILE_NAME}.pkl.gz -n ${OUT_FILE_NAME} --quiet
+          python comp_yields.py ${REF_FILE_NAME} ${OUT_FILE_NAME}.json -t1 "Ref yields" -t2 "New yields" --quiet
           echo $?
      # - name: Install package
      #   run: |
