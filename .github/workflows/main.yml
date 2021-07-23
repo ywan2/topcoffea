@@ -28,7 +28,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          unset PYTHONPATH
           . $CONDA_BASE/etc/profile.d/conda.sh
           echo "*** Install Conda and Pip packages"
           conda update -n base -c defaults conda
