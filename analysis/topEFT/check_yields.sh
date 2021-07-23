@@ -23,11 +23,8 @@ conda activate coffea-env
 conda install -y python=3.8.3 six dill
 conda install -y -c conda-forge coffea ndcctools conda-pack xrootd uproot
 
-#conda create myenv
-
-conda init bash
+#conda init bash
 #source ~/.bashrc    # <- !!!
-conda activate bash 
 
 #source activate test-env-01 
 
