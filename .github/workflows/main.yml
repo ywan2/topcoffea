@@ -21,16 +21,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      #- name: Install dependencies
+ 
+
+     #- name: Install dependencies
        # run: |
           # Install into base environment to avoid issue of environment variables not persisting between steps in a workflow, see https://autobencoder.com/2020-08-24-conda-actions/
           #conda env update --file environment.yml --name base
           #conda update conda
-          #CONDA_BASE=$(conda info --base)
-          #. $CONDA_BASE/etc/profile.d/conda.sh
-      #- name: activate conda 
-      #  run: |
-      #    conda activate base
+
+
+ 
       - name: Install package
         run: |
           pip install -e .

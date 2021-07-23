@@ -10,29 +10,26 @@ REF_FILE_NAME="test/ref_yields.json"
 # Activate uonda envirnoment
 printf "Activating conda environment..."
 unset PYTHONPATH
-#eval "$(conda shell.bash hook)"
 
 export PYTHONPATH=
 
 # Activate the Conda shell hooks without starting a new shell.
 CONDA_BASE=$(conda info --base)
 . $CONDA_BASE/etc/profile.d/conda.sh
+
 echo "*** Install Conda and Pip packages"
+
 conda update -n base -c defaults conda
 conda create -y --name coffea-env
 conda activate coffea-env
 conda install -y python=3.8.3 six dill
 conda install -y -c conda-forge coffea ndcctools conda-pack xrootd uproot
-#conda init bash
-#source ~/.bashrc    # <- !!!
 
-#source activate test-env-01 
-
-conda run -n myenv python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
+#conda run -n coffea-env python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
 
 # Run the processor
-#printf "Running processor..."
-#time python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
+printf "Running processor..."
+time python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
 
 # Make the jsons
 printf "Making yields json from pkl..."
