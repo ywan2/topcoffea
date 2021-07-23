@@ -26,21 +26,21 @@ jobs:
         run: |
           pip install -e .
 
-      - name: Activate conda
-        run: |
-          printf "Activating conda environment..."
-          OUT_FILE_NAME="output_check_yields"
-          REF_FILE_NAME="test/ref_yields.json"
-          unset PYTHONPATH
-          export PYTHONPATH=
-          CONDA_BASE=$(conda info --base)
-          . $CONDA_BASE/etc/profile.d/conda.sh
-          echo "*** Install Conda and Pip packages"
-          conda update -n base -c defaults conda
-          conda create -y --name coffea-env
-          conda activate coffea-env
-          conda install -y python=3.8.3 six dill
-          conda install -y -c conda-forge coffea ndcctools conda-pack xrootd uproot
+#      - name: Activate conda
+#        run: |
+#          printf "Activating conda environment..."
+#          OUT_FILE_NAME="output_check_yields"
+#          REF_FILE_NAME="test/ref_yields.json"
+#          unset PYTHONPATH
+#          export PYTHONPATH=
+#          CONDA_BASE=$(conda info --base)
+#          . $CONDA_BASE/etc/profile.d/conda.sh
+#          echo "*** Install Conda and Pip packages"
+#          conda update -n base -c defaults conda
+#          conda create -y --name coffea-env
+#          conda activate coffea-env
+#          conda install -y python=3.8.3 six dill
+#          conda install -y -c conda-forge coffea ndcctools conda-pack xrootd uproot
 
      # - name: Run processors over test files
      #   run: |
@@ -52,5 +52,5 @@ jobs:
       - name: Run processors over test files
         run: |
           cd analysis/topEFT
-          chmod +x ./check_yields2.sh 
-          ./check_yields2.sh 
+          chmod +x ./check_yields.sh 
+          ./check_yields.sh 
