@@ -21,14 +21,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Install package
+        run: |
+          pip install -e .
+
       - name: Install dependencies
         run: |
-          # Install into base environment to avoid issue of environment variables not persisting between steps in a workflow, see https://autobencoder.com/2020-08-24-conda-actions/
-          #conda env update --file environment.yml --name base
-          #conda update conda
+ # Install into base environment to avoid issue of environment variables not persisting between steps in a workflow, see https://autobencoder.com/2020-08-24-conda-actions/
+ #conda env update --file environment.yml --name base
+ #conda update conda
 
           export PYTHONPATH=
-          # Activate the Conda shell hooks without starting a new shell.
+ # Activate the Conda shell hooks without starting a new shell.
           CONDA_BASE=$(conda info --base)
           . $CONDA_BASE/etc/profile.d/conda.sh
           echo "*** Install Conda and Pip packages"
@@ -37,11 +42,9 @@ jobs:
           conda activate coffea-env
           conda install -y python=3.8.3 six dill
           conda install -y -c conda-forge coffea ndcctools conda-pack xrootd uproot
-
- 
-      - name: Install package
-        run: |
-          pip install -e .
+     # - name: Install package
+     #   run: |
+     #     pip install -e .
       - name: Run processors over test files
         run: |
           cd analysis/topEFT
