@@ -1,6 +1,11 @@
-#/bin/bash
-
-# Placeholder file for testing processor
-# Probably we can base this test on https://github.com/bu-cms/bucoffea/blob/master/test/run_over_testfiles.sh
-
-time python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
+set -e
+while IFS=" " read -r DATASET REMOTE_PATH REMAINDER
+do
+    FNAME=${DATASET}.root
+    if [[ ! -f $FNAME ]]; then
+        wget ${REMOTE_PATH}/${FNAME}
+    fi
+    echo ${FNAME} > files.txt
+    for PROCESSOR in monojet vbfhinv; do
+        buexec ${PROCESSOR} --outpath ./output/ --jobs 1 worker --dataset ${DATASET} --filelist files.txt --chunk 0
+    done
