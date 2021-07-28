@@ -32,23 +32,10 @@ echo $?
 printf "Running processor..."
 time python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
 
-if [$err_status != 0]
-then
-   exit 255
-else
-   exit 0
-fi
-
 # Make the jsons
 printf "Making yields json from pkl..."
 python get_yield_json.py -f histos/${OUT_FILE_NAME}.pkl.gz -n ${OUT_FILE_NAME} --quiet
 
-if [$err_status != 0]
-then
-   exit 255
-else
-   exit 0
-fi
 # If we want this to be the new ref json
 #cp ${OUT_FILE_NAME}.json tests/${REF_FILE_NAME}
 # Compare the yields to the ref json
@@ -57,11 +44,6 @@ python comp_yields.py ${REF_FILE_NAME} ${OUT_FILE_NAME}.json -t1 "Ref yields" -t
 errexit
 # Do something with the exit code?
 if [$err_status != 0]
-then
-   exit 255
-else
-   exit 0
-fi
 
 echo $?
 
