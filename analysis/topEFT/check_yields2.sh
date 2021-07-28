@@ -1,18 +1,21 @@
-# Run the processor
-printf "Running processor..."
-time python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
+# Fix for local environment at ND: unset PYTHONPATH to ignore existing python installs.
+export PYTHONPATH=
 
-# Make the jsons
-printf "Making yields json from pkl..."
-python get_yield_json.py -f histos/${OUT_FILE_NAME}.pkl.gz -n ${OUT_FILE_NAME} --quiet
+# Activate the Conda shell hooks without starting a new shell.
+CONDA_BASE=$(conda info --base)
+. $CONDA_BASE/etc/profile.d/conda.sh
 
-# If we want this to be the new ref json
-#cp ${OUT_FILE_NAME}.json tests/${REF_FILE_NAME}
+echo "*** Install Conda and Pip packages"
+conda create -y --name coffea-env
+conda activate coffea-env
+conda install -y python=3.8.3 six dill
+conda install -y -c conda-forge coffea ndcctools conda-pack xrootd uproot
 
-# Compare the yields to the ref json
-printf "Comparing yields agains reference..."
-python comp_yields.py ${REF_FILE_NAME} ${OUT_FILE_NAME}.json -t1 "Ref yields" -t2 "New yields" --quiet
+echo "*** Create the Conda-Pack tarball"
+conda-pack --name coffea-env --output coffea-env.tar.gz
 
-# Do something with the exit code?
-echo $?
+echo "*** Starting a single WQ worker"
+work_queue_worker -d all -o worker.log localhost 9123 &
 
+echo "*** Execute Coffea Application"
+python coffea-test.py
