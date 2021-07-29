@@ -42,7 +42,3 @@ python get_yield_json.py -f histos/${OUT_FILE_NAME}.pkl.gz -n ${OUT_FILE_NAME} -
 printf "Comparing yields agains reference..."
 python comp_yields.py ${REF_FILE_NAME} ${OUT_FILE_NAME}.json -t1 "Ref yields" -t2 "New yields" --quiet
 # Do something with the exit code?
-if [$err_status != 0]
-
-echo $?
-
