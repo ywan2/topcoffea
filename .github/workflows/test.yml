@@ -16,10 +16,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: install package
-        run: |
-          pip install -e .
-
       - name: Run processors over test files
         run: |
           cd analysis/topEFT
