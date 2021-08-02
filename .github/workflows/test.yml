@@ -18,4 +18,10 @@ jobs:
 
       - name: install package
         run: |
-          pip install -e . 
+          pip install -e .
+
+      - name: Run processors over test files
+        run: |
+          cd analysis/topEFT
+          chmod +x ./check_yields2.sh
+          ./check_yields2.sh 
