@@ -18,4 +18,4 @@ conda install -y -c conda-forge coffea ndcctools conda-pack xrootd uproot
 #Install python package
 pip install -e .
 
-echo $?
+#echo $?
