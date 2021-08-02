@@ -16,4 +16,6 @@ conda install -y python=3.8.3 six dill
 conda install -y -c conda-forge coffea ndcctools conda-pack xrootd uproot
 
 #Install python package
-#pip install -e .
+pip install -e .
+
+echo $?
