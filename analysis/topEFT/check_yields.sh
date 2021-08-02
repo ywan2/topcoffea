@@ -28,7 +28,7 @@ conda install -y -c conda-forge coffea ndcctools conda-pack xrootd uproot
 echo $?
 #conda run -n coffea-env python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
 
-#pip install -e .
+pip install -e .
 
 #echo $?
 # Run the processor
