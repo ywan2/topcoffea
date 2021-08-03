@@ -22,6 +22,6 @@ jobs:
           chmod +x ./check_yields2.sh
           ./check_yields2.sh
     
-#      - name: Install packages
-#        run: |
-#          pip install -e . 
+      - name: Install packages
+        run: |
+          pip install -e . 
