@@ -14,7 +14,7 @@ export PYTHONPATH=
 
 # Activate the Conda shell hooks without starting a new shell.
 CONDA_BASE=$(conda info --base)
-.$CONDA_BASE/etc/profile.d/conda.sh
+. $CONDA_BASE/etc/profile.d/conda.sh
 
 echo "*** Install Conda and Pip packages"
 
