@@ -13,16 +13,15 @@ jobs:
       - name: Hello world
         run: echo Hello world
 
-
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-#      - name: install package
-#        run: |
-#          pip install -e .
+      - name: install package
+        run: |
+          pip install -e .
 
       - name: Run processors over test files
         run: |
