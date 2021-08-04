@@ -31,9 +31,9 @@ jobs:
         run: |
           source test.sh
 
-#      - name: install package
-#        run: |
-#          pip install -e .
+      - name: install package
+        run: |
+          pip install -e .
 
       - name: Run processors over test files
         run: |
