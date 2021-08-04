@@ -37,7 +37,15 @@ jobs:
         run: |
           cd analysis/topEFT
           time python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o output_check_yields
+
+      - name: Get Yeilds 
+        run: |
+          cd analysis/topEFT
           python get_yield_json.py -f histos/output_check_yields.pkl.gz -n output_check_yields --quiet
+
+      - name: Compare Yeilds
+        run: |
+          cd analysis/topEFT
           python comp_yields.py test/ref_yields.json output_check_yields.json -t1 "Ref yields" -t2 "New yields" --quiet
 
 #          chmod +x ./check_yields.sh
