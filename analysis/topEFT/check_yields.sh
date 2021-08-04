@@ -24,7 +24,6 @@ conda activate coffea-env
 conda install -y python=3.8.3 six dill
 conda install -y -c conda-forge coffea ndcctools conda-pack xrootd uproot
 
-pip install -e .
 # Run the processor
 printf "Running processor..."
 time python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o ${OUT_FILE_NAME}
