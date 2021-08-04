@@ -18,6 +18,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Add conda to system path
+        run: |
+          echo $CONDA/bin >> $GITHUB_PATH
+      - name: Install dependencies
+        run: |
+          conda env update --file environment.yml --name base
+      - name: Will this work
+        run: |
+          conda list
+      - name: Run a test bash script
+        run: |
+          source test.sh
 
 #      - name: install package
 #        run: |
