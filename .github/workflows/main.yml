@@ -40,7 +40,7 @@ jobs:
       - name: Run processors over test files
         run: |
           cd analysis/topEFT
-          time python run.py ../../topcoffea/cfg/check_yields_sample.cfg -o output_check_yields
+          time python run.py ../../topcoffea/cfg/test.cfg  -o output_check_yields
 
       - name: Get Yeilds 
         run: |
