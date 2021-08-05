@@ -21,6 +21,7 @@ jobs:
       - name: Add conda to system path
         run: |
           echo $CONDA/bin >> $GITHUB_PATH
+ 
       - name: Install dependencies
         run: |
           conda env update --file environment.yml --name base
@@ -36,7 +37,7 @@ jobs:
       - name: download root files
         run: |
           curl http://www.crc.nd.edu/~ywan2/root_files/json_root_files.sh
-
+ 
       - name: Run processors over test files
         run: |
           cd analysis/topEFT
