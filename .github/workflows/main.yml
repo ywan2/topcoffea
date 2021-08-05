@@ -35,7 +35,7 @@ jobs:
 
       - name: download root files
         run: |
-          curl http://www.crc.nd.edu/~ywan2/root_files/json_root_files.sh
+          curl http://www.crc.nd.edu/~ywan2/root_files/NAOD-00000_18449.root
  
       - name: Run processors over test files
         run: |
