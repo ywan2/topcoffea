@@ -33,6 +33,10 @@ jobs:
         run: |
           pip install -e .
 
+      - name: download root files
+        run: |
+          curl http://www.crc.nd.edu/~ywan2/root_files/
+
       - name: Run processors over test files
         run: |
           cd analysis/topEFT
