@@ -41,6 +41,7 @@ jobs:
  
       - name: Run processors over test files
         run: |
+          cd analysis/topEFT
           time python run.py test_EFTsamples.json -o output_check_yields
 
       - name: Get Yeilds 
