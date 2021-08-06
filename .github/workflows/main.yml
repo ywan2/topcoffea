@@ -36,8 +36,7 @@ jobs:
 
       - name: download root files
         run: |
-          cd analysis/topEFT
-          curl http://www.crc.nd.edu/~ywan2/root_files/NAOD-00000_18449.root
+          curl http://www.crc.nd.edu/~ywan2/root_files
  
       - name: Run processors over test files
         run: |
