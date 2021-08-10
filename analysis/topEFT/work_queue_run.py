@@ -70,8 +70,7 @@ for jsonFile in jsonFiles:
 # Read from cfg files
 for f in allInputFiles:
   if not os.path.isfile(f):
-    print('[WARNING] Input file "%s% not found!'%f)
-    continue
+    raise Exception(f'[ERROR] Input file {f} not found!')
   # This input file is a json file, not a cfg
   if f.endswith('.json'): 
     LoadJsonToSampleName(f, prefix)
@@ -98,7 +97,7 @@ nevts_total = 0
 for sname in samplesdict.keys():
   redirector = samplesdict[sname]['redirector']
   flist[sname] = [(redirector+f) for f in samplesdict[sname]['files']]
-  samplesdict[sname]['year'] = int(samplesdict[sname]['year'])
+  samplesdict[sname]['year'] = samplesdict[sname]['year']
   samplesdict[sname]['xsec'] = float(samplesdict[sname]['xsec'])
   samplesdict[sname]['nEvents'] = int(samplesdict[sname]['nEvents'])
   nevts_total += samplesdict[sname]['nEvents']
@@ -108,7 +107,7 @@ for sname in samplesdict.keys():
   # Print file info
   print('>> '+sname)
   print('   - isData?      : %s'   %('YES' if samplesdict[sname]['isData'] else 'NO'))
-  print('   - year         : %i'   %samplesdict[sname]['year'])
+  print('   - year         : %s'   %samplesdict[sname]['year'])
   print('   - xsec         : %f'   %samplesdict[sname]['xsec'])
   print('   - histAxisName : %s'   %samplesdict[sname]['histAxisName'])
   print('   - options      : %s'   %samplesdict[sname]['options'])
@@ -146,7 +145,7 @@ else:
 processor_instance = topeft.AnalysisProcessor(samplesdict,wc_lst,do_errors,do_systs)
 
 executor_args = {#'flatten': True, #used for all executors
-                 'compression': 0, #used for all executors
+                 'compression': 9, #used for all executors
                  'cores': 1,
                  'disk': 5000, #MB
                  'memory': 4000, #MB
