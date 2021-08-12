@@ -3,21 +3,15 @@ name: CI
 on:
   push:
   schedule:
-    - cron: '0 1 * * *' # Should test every day at 1AM, though apparently does not work anywhere but master branch
+    - cron: '0 1 * * *' # Test every day at 1AM
   
 jobs:
-  # Example of a test job, just prints Hello world
-  test: 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Hello world
-        run: echo Hello world
-
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
       - name: Add conda to system path
         run: |
           echo $CONDA/bin >> $GITHUB_PATH 
@@ -26,32 +20,29 @@ jobs:
         run: |
           conda env update --file environment.yml --name base
 
-      - name: Check conda
+      - name: Conda list
         run: |
           conda list
 
-      - name: install package
+      - name: Install topcoffea package
         run: |
           pip install -e .
 
-      - name: download root files
+      - name: Download root files
         run: |
           wget http://www.crc.nd.edu/~ywan2/root_files/NAOD-00000_18449.root
 
       - name: Run processors over test files
         run: |
           cd analysis/topEFT
-          time python run.py test_EFTsamples.json -o output_check_yields
+          time python run.py ../../topcoffea/json/test_samples/UL17_private_ttH_for_CI.json -o output_check_yields
 
-      - name: Get Yeilds 
+      - name: Get yields 
         run: |
           cd analysis/topEFT
-          python get_yield_json.py -f histos/output_check_yields.pkl.gz -n output_check_yields #--quiet
+          python get_yield_json.py -f histos/output_check_yields.pkl.gz -n output_check_yields
 
-      - name: Compare Yeilds
+      - name: Compare yields
         run: |
           cd analysis/topEFT
-          python comp_yields.py test/ref_yields.json output_check_yields.json -t1 "Ref yields" -t2 "New yields" #--quiet
-
-#          chmod +x ./check_yields.sh
-#          ./check_yields.sh 
+          python comp_yields.py test/ref_yields.json output_check_yields.json -t1 "Ref yields" -t2 "New yields"
