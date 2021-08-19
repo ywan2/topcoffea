@@ -34,6 +34,7 @@ jobs:
 
       - name: Submit workers
         run: |
+          cd analysis/topEFT
           condor_submit_workers -M ${USER}-workqueue-coffea -t 900 --cores 8 --memory 40000 --disk 50000  1
 
       - name: Run processors over test files
