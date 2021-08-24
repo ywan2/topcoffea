@@ -35,7 +35,6 @@ jobs:
       - name: Run processors over test files
         run: |
           cd analysis/topEFT
-#          time python work_queue_run.py ../../topcoffea/json/test_samples/UL17_private_ttH_for_CI.json -o output_check_yields
           time python run.py ../../topcoffea/json/test_samples/UL17_private_ttH_for_CI.json -o output_check_yields
 
       - name: Get yields 
