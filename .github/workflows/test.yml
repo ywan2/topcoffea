@@ -1,1 +1,25 @@
-ls
+name: CI
+
+on:
+  push:
+  schedule:
+    - cron: '0 1 * * *' # Test every day at 1AM
+
+jobs:
+  Submit_Workers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Add conda to system path
+        run: |
+          echo $CONDA/bin >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: |
+          conda env update --file environment.yml --name base
+
+      - name: Conda list
+        run: |
+          conda list
