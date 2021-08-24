@@ -23,3 +23,7 @@ jobs:
       - name: Conda list
         run: |
           conda list
+
+      - name: Submit workers
+        run: |
+          condor_submit_workers -M ${USER}-workqueue-coffea -t 900 --cores 8 --memory 80000 --disk 100000  6
