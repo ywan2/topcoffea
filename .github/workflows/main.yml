@@ -2,8 +2,8 @@ name: CI
 
 on:
   push:
-  schedule:
-    - cron: '0 1 * * *' # Test every day at 1AM
+ # schedule:
+ #   - cron: '0 1 * * *' # Test every day at 1AM
   
 jobs:
   Submit_Workers:
