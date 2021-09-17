@@ -31,32 +31,32 @@ jobs:
 
 ##          condor_submit_workers -M ${USER}-workqueue-coffea -t 900 --cores 8 --memory 80000 --disk 100000  6
 
-#  Full_Analysis:
-#    needs: Submit_Workers
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout repository
-#        uses: actions/checkout@v2
-#
-#      - name: Add conda to system path
-#        run: |
-#          echo $CONDA/bin >> $GITHUB_PATH 
+  Full_Analysis:
+    needs: Submit_Workers
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-#      - name: Install dependencies
-#        run: |
-#          conda env update --file environment.yml --name base
+      - name: Add conda to system path
+        run: |
+          echo $CONDA/bin >> $GITHUB_PATH 
 
-#      - name: Conda list
-#        run: |
-#          conda list
+      - name: Install dependencies
+        run: |
+          conda env update --file environment.yml --name base
 
-#      - name: Install topcoffea package
-#        run: |
-#          pip install -e .
+      - name: Conda list
+        run: |
+          conda list
 
-#      - name: Download root files
-#        run: |
-#          wget http://www.crc.nd.edu/~ywan2/root_files/NAOD-00000_18449.root
+      - name: Install topcoffea package
+        run: |
+          pip install -e .
+
+      - name: Download root files
+        run: |
+          wget http://www.crc.nd.edu/~ywan2/root_files/NAOD-00000_18449.root
 
 #      - name: Run processors over test files
 #        run: |
