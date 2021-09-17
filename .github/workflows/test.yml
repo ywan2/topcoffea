@@ -25,6 +25,6 @@ jobs:
         run: |
           work_queue_worker -d all -o worker.log localhost 9123 &
 
-      - name: Execute coffea application
-        run: |
-          python coffea-test.py
+#      - name: Execute coffea application
+#        run: |
+#          python coffea-test.py
