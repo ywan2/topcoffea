@@ -12,6 +12,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+  Submit_workers:
+    needs: Activate_Conda
+    runs-on: ubuntu-latest
+    steps: 
+
       - name: Add conda to system path
         run: |
           echo $CONDA/bin >> $GITHUB_PATH
@@ -20,14 +25,10 @@ jobs:
         run: |
           conda env update --file environment.yml --name base
 
-      - name: Conda list
+      - name: List conda
         run: |
           conda list
 
-  Submit_workers:
-    needs: Activate_Conda
-    runs-on: ubuntu-latest
-    steps: 
       - name: Submit workers
         run: |
           work_queue_worker -M $USER-wq-topcoffea --single-shot

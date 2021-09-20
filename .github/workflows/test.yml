@@ -2,8 +2,6 @@ name: CI
 
 on: push
 
-#stages:
-#  - stage: A
 jobs:
       job-1:
        runs-on: ubuntu-latest
@@ -23,12 +21,6 @@ jobs:
           run: |
             conda list
 
-#  - stage: B
-#    jobs:
-      job-2:
-       needs: job-1
-       runs-on: ubuntu-latest
-       steps:
         - name: Submit workers
           run: |
             work_queue_worker -M $USER-wq-topcoffea --single-shot
