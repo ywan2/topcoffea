@@ -47,6 +47,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Add conda to system path
+        run: |
+          echo $CONDA/bin >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: |
+          conda env update --file environment.yml --name base
+
+      - name: List conda
+        run: |
+          conda list
+
       - name: Install topcoffea package
         run: |
           pip install -e .
