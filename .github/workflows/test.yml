@@ -3,7 +3,7 @@ name: CI
 on: push
 
 jobs:
-  Submit_Workers:
+  Activate_Conda:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,10 +21,15 @@ jobs:
         run: |
           conda list
 
+#      - name: Submit workers
+#        run: |
+#          work_queue_worker -d all -o worker.log localhost 9123 &
+
+  Submit_Workers:
+    needs: Submit_Workers
+    runs-on: ubuntu-latest
+    steps:
       - name: Submit workers
         run: |
           work_queue_worker -d all -o worker.log localhost 9123 &
 
-#      - name: Execute coffea application
-#        run: |
-#          python coffea-test.py
