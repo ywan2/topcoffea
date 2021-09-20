@@ -5,7 +5,7 @@ on: push
 stages:
   - stage: A 
     jobs:
-     - job-1:
+      job-1:
        runs-on: ubuntu-latest
        steps:
         - name: Checkout repository
@@ -25,7 +25,7 @@ stages:
 
   - stage: B
     jobs:
-     - job-2:
+      job-2:
        needs: job-1
        runs-on: ubuntu-latest
        steps:
