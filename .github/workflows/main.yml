@@ -55,10 +55,11 @@ jobs:
         run: |
           wget http://www.crc.nd.edu/~ywan2/root_files/NAOD-00000_18449.root
 
-#      - name: Run processors over test files
-#        run: |
-#          cd analysis/topEFT
-#          time python work_queue_run.py ../../topcoffea/json/test_samples/UL17_private_ttH_for_CI.json -o output_check_yields
+      - name: Run processors over test files
+        run: |
+          cd analysis/topEFT
+          time python work_queue_run.py ../../topcoffea/json/test_samples/UL17_private_ttH_for_CI.json -o output_check_yields
+
 #      - name: Get yields 
 #        run: |
 #          cd analysis/topEFT
