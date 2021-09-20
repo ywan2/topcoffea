@@ -8,22 +8,22 @@ stages:
 
 job-1:
     stage: stage-1
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-        - name: Add conda to system path
-          run: |
-            echo $CONDA/bin >> $GITHUB_PATH
+      - name: Add conda to system path
+        run: |
+          echo $CONDA/bin >> $GITHUB_PATH
 
-        - name: Install dependencies
-          run: |
-            conda env update --file environment.yml --name base
+      - name: Install dependencies
+        run: |
+          conda env update --file environment.yml --name base
 
-        - name: Conda list
-          run: |
-            conda list
+      - name: Conda list
+        run: |
+          conda list
 
 job-2:
     stage: stage-1
