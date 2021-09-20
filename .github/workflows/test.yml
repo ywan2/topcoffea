@@ -2,8 +2,19 @@ name: CI
 
 on: push
 
+stages:
+    - stage-1
+    - stage-2
+
 jobs:
+
+  stages:
+      - stage-1
+      - stage-2
+
   Activate_Conda:
+    stage: stage-1
+    needs: []
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,15 +32,12 @@ jobs:
         run: |
           conda list
 
-#      - name: Submit workers
-#        run: |
-#          work_queue_worker -d all -o worker.log localhost 9123 &
-
   Submit_Workers:
+    stage: stage-1
+    needs: [Activate_Conda]
     needs: Activate_Conda
     runs-on: ubuntu-latest
     steps:
       - name: Submit workers
         run: |
-          work_queue_worker -d all -o worker.log localhost 9123 &
-
+          work_queue_worker -M $USER-wq-topcoffea --single-shot
