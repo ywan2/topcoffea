@@ -16,6 +16,8 @@ jobs:
     needs: Activate_Conda
     runs-on: ubuntu-latest
     steps: 
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
       - name: Add conda to system path
         run: |
