@@ -7,11 +7,6 @@ stages:
     - stage-2
 
 jobs:
-
-  stages:
-      - stage-1
-      - stage-2
-
   Activate_Conda:
     stage: stage-1
     needs: []
