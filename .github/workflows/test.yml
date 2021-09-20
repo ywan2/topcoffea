@@ -2,9 +2,9 @@ name: CI
 
 on: push
 
-stages:
-  - stage: A 
-    jobs:
+#stages:
+#  - stage: A
+jobs:
       job-1:
        runs-on: ubuntu-latest
        steps:
@@ -23,8 +23,8 @@ stages:
           run: |
             conda list
 
-  - stage: B
-    jobs:
+#  - stage: B
+#    jobs:
       job-2:
        needs: job-1
        runs-on: ubuntu-latest
