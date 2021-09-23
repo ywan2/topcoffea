@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
 
   Submit_workers:
-    needs: Activate_Conda
+#    needs: Activate_Conda
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout repository
@@ -31,16 +31,16 @@ jobs:
         run: |
           conda list
 
-#      - name: Submit workers
-#        run: |
-#          work_queue_worker -d all -o worker.log localhost 9123 &
+      - name: Submit workers
+        run: |
+          work_queue_worker -d all -o worker.log localhost 9123 &
  #   work_queue_worker -M $USER-wq-topcoffea --single-shot
 ##          condor_submit_workers -M ${USER}-workqueue-coffea -t 900 --cores 8 --memory 80000 --disk 100000  6
 
 
 
   Full_Analysis:
-    needs: Activate_Conda
+#    needs: Activate_Conda
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
