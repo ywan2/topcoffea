@@ -6,13 +6,7 @@ on:
  #   - cron: '0 1 * * *' # Test every day at 1AM
   
 jobs:
-  Activate_Conda:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-  Submit_workers:
+  Full_analysis:
     needs: Activate_Conda
     runs-on: ubuntu-latest
     steps: 
@@ -39,26 +33,6 @@ jobs:
 ##          condor_submit_workers -M ${USER}-workqueue-coffea -t 900 --cores 8 --memory 80000 --disk 100000  6
 
 
-
-  Full_Analysis:
-    needs: Activate_Conda
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Add conda to system path
-        run: |
-          echo $CONDA/bin >> $GITHUB_PATH
-
-      - name: Install dependencies
-        run: |
-          conda env update --file environment.yml --name base
-
-      - name: List conda
-        run: |
-          conda list
-
       - name: Install topcoffea package
         run: |
           pip install -e .
@@ -66,7 +40,10 @@ jobs:
       - name: Download root files
         run: |
           wget http://www.crc.nd.edu/~ywan2/root_files/NAOD-00000_18449.root
-
+      - name: Submit workers
+        run: |
+          work_queue_worker -M $USER-wq-topcoffea --single-shot &
+#          work_queue_worker -d all -o worker.log localhost 9123 &
       - name: Run processors over test files
         run: |
           cd analysis/topEFT
