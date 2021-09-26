@@ -7,7 +7,6 @@ on:
   
 jobs:
   Full_analysis:
-    needs: Activate_Conda
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout repository
