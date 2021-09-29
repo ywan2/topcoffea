@@ -38,18 +38,23 @@ jobs:
 #          work_queue_worker -d all -o worker.log localhost 9123 &
 #          condor_submit_workers -M ${USER}-workqueue-coffea -t 900 --cores 8 --memory 80000 --disk 100000  6
 
+#      - name: Run processors over test files
+#        run: |
+#          cd analysis/topEFT
+#          work_queue_worker -d all -o worker.log localhost 9123 &
+#          time python work_queue_run.py ../../topcoffea/json/test_samples/UL17_private_ttH_for_CI.json -o output_check_yields
+
       - name: Run processors over test files
         run: |
           cd analysis/topEFT
-          work_queue_worker -d all -o worker.log localhost 9123 &
-          time python work_queue_run.py ../../topcoffea/json/test_samples/UL17_private_ttH_for_CI.json -o output_check_yields
+          time python run.py ../../topcoffea/json/test_samples/UL17_private_ttH_for_CI.json -o output_check_yields
 
-#      - name: Get yields 
-#        run: |
-#          cd analysis/topEFT
-#          python get_yield_json.py -f histos/output_check_yields.pkl.gz -n output_check_yields
+      - name: Get yields 
+        run: |
+          cd analysis/topEFT
+          python get_yield_json.py -f histos/output_check_yields.pkl.gz -n output_check_yields
 
-#      - name: Compare yields
-#        run: |
-#          cd analysis/topEFT
-#          python comp_yields.py test/UL17_private_ttH_for_CI_yields.json output_check_yields.json -t1 "Ref yields" -t2 "New yields"
+      - name: Compare yields
+        run: |
+          cd analysis/topEFT
+          python comp_yields.py test/UL17_private_ttH_for_CI_yields.json output_check_yields.json -t1 "Ref yields" -t2 "New yields"
