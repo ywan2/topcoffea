@@ -1,0 +1,20 @@
+
+on:
+  push:
+
+   jobs:
+     Full_analysis:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v2
+
+          - name:
+            run: | 
+              echo start
+              date
+              sleep 300
+              date
+              echo done
+              ps -fu ywan2
+              jobs
