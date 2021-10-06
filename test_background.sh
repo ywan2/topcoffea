@@ -7,4 +7,3 @@ date
 echo done
 
 ps -fu ywan2
-#jobs
