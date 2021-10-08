@@ -82,7 +82,6 @@ if __name__ == '__main__':
   for f in allInputFiles:
     if not os.path.isfile(f):
       raise Exception(f'[ERROR] Input file {f} not found!')
-
     # This input file is a json file, not a cfg
     if f.endswith('.json'): 
       LoadJsonToSampleName(f, prefix)
@@ -156,7 +155,7 @@ if __name__ == '__main__':
 
   # Run the processor and get the output
   tstart = time.time()
-  output = processor.run_uproot_job(flist, treename=treename, processor_instance=processor_instance, executor=processor.futures_executor, executor_args={"schema": NanoAODSchema,'workers': nworkers, 'pre_workers': 1}, chunksize=chunksize, maxchunks=nchunks)
+  output = processor.run_uproot_job(flist, treename=treename, processor_instance=processor_instance, executor=processor.futures_executor, executor_args={"schema": NanoAODSchema,'workers': nworkers}, chunksize=chunksize, maxchunks=nchunks)
   dt = time.time() - tstart
 
   nbins = sum(sum(arr.size for arr in h._sumw.values()) for h in output.values() if isinstance(h, hist.Hist))
