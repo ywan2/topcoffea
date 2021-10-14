@@ -35,14 +35,15 @@ jobs:
       - name: Test futures executor
         run: |
           cd analysis/topEFT
-          time python run.py ../../topcoffea/json/test_samples/UL17_private_ttH_for_CI.json -o output_check_yields
+          work_queue_worker -d all -o worker.log localhost 9123 &
+          time python work_queue_run.py ../../topcoffea/json/test_samples/UL17_private_ttH_for_CI.json -o output_check_yields
 
-      - name: Run processors over test files with futures executor
-        run: |
-          conda install pytest pytest-cov
-          conda install root_base -c conda-forge
-          mkdir histos
-          pytest --cov=./ --cov-report=xml
+#      - name: Run processors over test files with futures executor
+#        run: |
+#          conda install pytest pytest-cov
+#          conda install root_base -c conda-forge
+#          mkdir histos
+#          pytest --cov=./ --cov-report=xml
 
       - name: Get yields 
         run: |
