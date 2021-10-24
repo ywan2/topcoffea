@@ -1,6 +1,6 @@
 echo hello world
 
-sleep 300
+sleep 300 &
 
 echo hello world again
 
