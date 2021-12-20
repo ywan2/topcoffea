@@ -52,7 +52,6 @@ jobs:
         run: |
           cd analysis/topEFT
           python get_yield_json.py -f histos/output_check_yields.pkl.gz -n output_check_yields
-
       - name: Compare yields
         run: |
           cd analysis/topEFT
