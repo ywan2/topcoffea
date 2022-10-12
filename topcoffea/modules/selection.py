@@ -94,16 +94,14 @@ dataset_dict = {
         "EGamma" : [
             "Ele32_WPTight_Gsf",
             "Ele35_WPTight_Gsf",
+            "Ele23_Ele12_CaloIdL_TrackIdL_IsoVL",
+            "Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ",
+            "Ele16_Ele12_Ele8_CaloIdL_TrackIdL",
         ],
         "DoubleMuon" : [
             "Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",
             "Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
             "TripleMu_12_10_5",
-        ],
-        "DoubleEG" : [
-            "Ele23_Ele12_CaloIdL_TrackIdL_IsoVL",
-            "Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ",
-            "Ele16_Ele12_Ele8_CaloIdL_TrackIdL",
         ],
         "MuonEG" : [
             "Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
@@ -224,24 +222,26 @@ def add2lMaskAndSFs(events, year, isData, sampleType):
     mask = (filters & cleanup & dilep & pt2515 & exclusive & eleID1 & eleID2 & muTightCharge)
     
     # MC matching requirement (already passed for data)
-    if sampleType == 'prompt':
-        lep1_match=((padded_FOs[:,0].genPartFlav==1) | (padded_FOs[:,0].genPartFlav == 15))    
-        lep2_match=((padded_FOs[:,1].genPartFlav==1) | (padded_FOs[:,1].genPartFlav == 15))
-        lep1_charge=((padded_FOs[:,0].gen_pdgId*padded_FOs[:,0].pdgId) > 0)
-        lep2_charge=((padded_FOs[:,1].gen_pdgId*padded_FOs[:,1].pdgId) > 0)
-        mask = mask & lep1_match & lep2_match & lep1_charge & lep2_charge
-    elif sampleType =='conversions':
-        lep1_match=(padded_FOs[:,0].genPartFlav==22)
-        lep2_match=(padded_FOs[:,1].genPartFlav==22)
-        mask = mask & ( lep1_match | lep2_match ) 
-    elif sampleType == 'nonprompt':
-        lep1_match=((padded_FOs[:,0].genPartFlav!=1) & (padded_FOs[:,0].genPartFlav != 15) & (padded_FOs[:,0].genPartFlav != 22))
-        lep2_match=((padded_FOs[:,1].genPartFlav!=1) & (padded_FOs[:,1].genPartFlav != 15) & (padded_FOs[:,1].genPartFlav != 22))
-        mask = mask & ( lep1_match | lep2_match ) 
-    elif sampleType == "data":
+    if sampleType == "data":
         pass
     else:
-        raise Exception(f"Error: Unknown sampleType {sampleType}.")
+        lep1_match_prompt = ((padded_FOs[:,0].genPartFlav==1) | (padded_FOs[:,0].genPartFlav == 15))
+        lep2_match_prompt = ((padded_FOs[:,1].genPartFlav==1) | (padded_FOs[:,1].genPartFlav == 15))
+        lep1_charge       = ((padded_FOs[:,0].gen_pdgId*padded_FOs[:,0].pdgId) > 0)
+        lep2_charge       = ((padded_FOs[:,1].gen_pdgId*padded_FOs[:,1].pdgId) > 0)
+        lep1_match_conv   = (padded_FOs[:,0].genPartFlav==22)
+        lep2_match_conv   = (padded_FOs[:,1].genPartFlav==22)
+        prompt_mask = ( lep1_match_prompt & lep2_match_prompt & lep1_charge & lep2_charge )
+        conv_mask   = ( lep1_match_conv | lep2_match_conv )
+        if sampleType == 'prompt':
+            mask = (mask & prompt_mask)
+        elif sampleType =='conversions':
+            mask = (mask & conv_mask)
+        elif sampleType =='prompt_and_conversions':
+            # Samples that we use for both prompt and conv contributions (i.e. just DY)
+            mask = (mask & (prompt_mask | conv_mask))
+        else:
+            raise Exception(f"Error: Unknown sampleType {sampleType}.")
 
     mask_nozeeveto = mask
     mask = mask & (  Zee_veto )
@@ -249,9 +249,12 @@ def add2lMaskAndSFs(events, year, isData, sampleType):
     events['is2l_nozeeveto'] = ak.fill_none(mask_nozeeveto,False)
 
     # SFs
-    events['sf_2l'] = padded_FOs[:,0].sf_nom_2l*padded_FOs[:,1].sf_nom_2l
-    events['sf_2l_hi'] = padded_FOs[:,0].sf_hi_2l*padded_FOs[:,1].sf_hi_2l
-    events['sf_2l_lo'] = padded_FOs[:,0].sf_lo_2l*padded_FOs[:,1].sf_lo_2l
+    events['sf_2l_muon'] = padded_FOs[:,0].sf_nom_2l_muon*padded_FOs[:,1].sf_nom_2l_muon
+    events['sf_2l_elec'] = padded_FOs[:,0].sf_nom_2l_elec*padded_FOs[:,1].sf_nom_2l_elec
+    events['sf_2l_hi_muon'] = padded_FOs[:,0].sf_hi_2l_muon*padded_FOs[:,1].sf_hi_2l_muon
+    events['sf_2l_hi_elec'] = padded_FOs[:,0].sf_hi_2l_elec*padded_FOs[:,1].sf_hi_2l_elec
+    events['sf_2l_lo_muon'] = padded_FOs[:,0].sf_lo_2l_muon*padded_FOs[:,1].sf_lo_2l_muon
+    events['sf_2l_lo_elec'] = padded_FOs[:,0].sf_lo_2l_elec*padded_FOs[:,1].sf_lo_2l_elec
 
     # SR:
     events['is2l_SR'] = (padded_FOs[:,0].isTightLep) & (padded_FOs[:,1].isTightLep)
@@ -288,32 +291,36 @@ def add3lMaskAndSFs(events, year, isData, sampleType):
     mask = (filters & cleanup & trilep & pt251510 & exclusive & eleID1 & eleID2 & eleID3 )
 
     # MC matching requirement (already passed for data)
-    if sampleType == 'prompt':
-        lep1_match=((padded_FOs[:,0].genPartFlav==1) | (padded_FOs[:,0].genPartFlav == 15))    
-        lep2_match=((padded_FOs[:,1].genPartFlav==1) | (padded_FOs[:,1].genPartFlav == 15))
-        lep3_match=((padded_FOs[:,2].genPartFlav==1) | (padded_FOs[:,2].genPartFlav == 15))
-        mask = mask & lep1_match & lep2_match & lep3_match
-    elif sampleType =='conversions':
-        lep1_match=(padded_FOs[:,0].genPartFlav==22)
-        lep2_match=(padded_FOs[:,1].genPartFlav==22)
-        lep3_match=(padded_FOs[:,2].genPartFlav==22)
-        mask = mask & ( lep1_match | lep2_match | lep3_match ) 
-    elif sampleType == 'nonprompt':
-        lep1_match=((padded_FOs[:,0].genPartFlav!=1) & (padded_FOs[:,0].genPartFlav != 15) & (padded_FOs[:,0].genPartFlav != 22))
-        lep2_match=((padded_FOs[:,1].genPartFlav!=1) & (padded_FOs[:,1].genPartFlav != 15) & (padded_FOs[:,1].genPartFlav != 22))
-        lep3_match=((padded_FOs[:,2].genPartFlav!=1) & (padded_FOs[:,2].genPartFlav != 15) & (padded_FOs[:,2].genPartFlav != 22))
-        mask = mask & ( lep1_match | lep2_match | lep3_match ) 
-    elif sampleType == "data":
+    if sampleType == "data":
         pass
     else:
-        raise Exception(f"Error: Unknown sampleType {sampleType}.")
+        lep1_match_prompt = ((padded_FOs[:,0].genPartFlav==1) | (padded_FOs[:,0].genPartFlav == 15))
+        lep2_match_prompt = ((padded_FOs[:,1].genPartFlav==1) | (padded_FOs[:,1].genPartFlav == 15))
+        lep3_match_prompt = ((padded_FOs[:,2].genPartFlav==1) | (padded_FOs[:,2].genPartFlav == 15))
+        lep1_match_conv   = (padded_FOs[:,0].genPartFlav==22)
+        lep2_match_conv   = (padded_FOs[:,1].genPartFlav==22)
+        lep3_match_conv   = (padded_FOs[:,2].genPartFlav==22)
+        prompt_mask = ( lep1_match_prompt & lep2_match_prompt & lep3_match_prompt )
+        conv_mask   = ( lep1_match_conv | lep2_match_conv | lep3_match_conv)
+        if sampleType == 'prompt':
+            mask = (mask & prompt_mask)
+        elif sampleType =='conversions':
+            mask = (mask & conv_mask)
+        elif sampleType =='prompt_and_conversions':
+            # Samples that we use for both prompt and conv contributions (i.e. just DY)
+            mask = (mask & (prompt_mask | conv_mask))
+        else:
+            raise Exception(f"Error: Unknown sampleType {sampleType}.")
 
     events['is3l'] = ak.fill_none(mask,False)
 
     # SFs
-    events['sf_3l'] = padded_FOs[:,0].sf_nom_3l*padded_FOs[:,1].sf_nom_3l*padded_FOs[:,2].sf_nom_3l
-    events['sf_3l_hi'] = padded_FOs[:,0].sf_hi_3l*padded_FOs[:,1].sf_hi_3l*padded_FOs[:,2].sf_hi_3l
-    events['sf_3l_lo'] = padded_FOs[:,0].sf_lo_3l*padded_FOs[:,1].sf_lo_3l*padded_FOs[:,2].sf_lo_3l
+    events['sf_3l_muon'] = padded_FOs[:,0].sf_nom_3l_muon*padded_FOs[:,1].sf_nom_3l_muon*padded_FOs[:,2].sf_nom_3l_muon
+    events['sf_3l_elec'] = padded_FOs[:,0].sf_nom_3l_elec*padded_FOs[:,1].sf_nom_3l_elec*padded_FOs[:,2].sf_nom_3l_elec
+    events['sf_3l_hi_muon'] = padded_FOs[:,0].sf_hi_3l_muon*padded_FOs[:,1].sf_hi_3l_muon*padded_FOs[:,2].sf_hi_3l_muon
+    events['sf_3l_hi_elec'] = padded_FOs[:,0].sf_hi_3l_elec*padded_FOs[:,1].sf_hi_3l_elec*padded_FOs[:,2].sf_hi_3l_elec
+    events['sf_3l_lo_muon'] = padded_FOs[:,0].sf_lo_3l_muon*padded_FOs[:,1].sf_lo_3l_muon*padded_FOs[:,2].sf_lo_3l_muon
+    events['sf_3l_lo_elec'] = padded_FOs[:,0].sf_lo_3l_elec*padded_FOs[:,1].sf_lo_3l_elec*padded_FOs[:,2].sf_lo_3l_elec
 
     # SR:
     events['is3l_SR'] = (padded_FOs[:,0].isTightLep)  & (padded_FOs[:,1].isTightLep) & (padded_FOs[:,2].isTightLep)
@@ -353,9 +360,12 @@ def add4lMaskAndSFs(events, year, isData):
     events['is4l'] = ak.fill_none(mask,False)
 
     # SFs:
-    events['sf_4l'] = padded_FOs[:,0].sf_nom_3l*padded_FOs[:,1].sf_nom_3l*padded_FOs[:,2].sf_nom_3l*padded_FOs[:,3].sf_nom_3l
-    events['sf_4l_hi'] = padded_FOs[:,0].sf_hi_3l*padded_FOs[:,1].sf_hi_3l*padded_FOs[:,2].sf_hi_3l*padded_FOs[:,3].sf_hi_3l
-    events['sf_4l_lo'] = padded_FOs[:,0].sf_lo_3l*padded_FOs[:,1].sf_lo_3l*padded_FOs[:,2].sf_lo_3l*padded_FOs[:,3].sf_lo_3l
+    events['sf_4l_muon'] = padded_FOs[:,0].sf_nom_3l_muon*padded_FOs[:,1].sf_nom_3l_muon*padded_FOs[:,2].sf_nom_3l_muon*padded_FOs[:,3].sf_nom_3l_muon
+    events['sf_4l_elec'] = padded_FOs[:,0].sf_nom_3l_elec*padded_FOs[:,1].sf_nom_3l_elec*padded_FOs[:,2].sf_nom_3l_elec*padded_FOs[:,3].sf_nom_3l_elec
+    events['sf_4l_hi_muon'] = padded_FOs[:,0].sf_hi_3l_muon*padded_FOs[:,1].sf_hi_3l_muon*padded_FOs[:,2].sf_hi_3l_muon*padded_FOs[:,3].sf_hi_3l_muon
+    events['sf_4l_hi_elec'] = padded_FOs[:,0].sf_hi_3l_elec*padded_FOs[:,1].sf_hi_3l_elec*padded_FOs[:,2].sf_hi_3l_elec*padded_FOs[:,3].sf_hi_3l_elec
+    events['sf_4l_lo_muon'] = padded_FOs[:,0].sf_lo_3l_muon*padded_FOs[:,1].sf_lo_3l_muon*padded_FOs[:,2].sf_lo_3l_muon*padded_FOs[:,3].sf_lo_3l_muon
+    events['sf_4l_lo_elec'] = padded_FOs[:,0].sf_lo_3l_elec*padded_FOs[:,1].sf_lo_3l_elec*padded_FOs[:,2].sf_lo_3l_elec*padded_FOs[:,3].sf_lo_3l_elec
 
     # SR: Don't really need this for 4l, but define it so we can treat 4l category similar to 2lss and 3l
     events['is4l_SR'] = tightleps
@@ -399,13 +409,20 @@ def addLepCatMasks(events):
     events['is_gr4l'] = ((n_e_4l+n_m_4l)>4)
 
 
-# Returns a mask for events with a same flavor opposite sign pair close to the Z
+# Returns a mask for events with a same flavor opposite (same) sign pair close to the Z
 # Mask will be True if any combination of 2 leptons from within the given collection satisfies the requirement
-def get_Z_peak_mask(lep_collection,pt_window):
+def get_Z_peak_mask(lep_collection,pt_window,flavor="os"):
     ll_pairs = ak.combinations(lep_collection, 2, fields=["l0","l1"])
     zpeak_mask = (abs((ll_pairs.l0+ll_pairs.l1).mass - 91.2)<pt_window)
-    sfos_mask = (ll_pairs.l0.pdgId == -ll_pairs.l1.pdgId)
-    sfosz_mask = ak.flatten(ak.any((zpeak_mask & sfos_mask),axis=1,keepdims=True)) # Use flatten here because it is too nested (i.e. it looks like this [[T],[F],[T],...], and want this [T,F,T,...]))
+    if flavor == "os":
+        sf_mask = (ll_pairs.l0.pdgId == -ll_pairs.l1.pdgId)
+    elif flavor == "ss":
+        sf_mask = (ll_pairs.l0.pdgId == ll_pairs.l1.pdgId)
+    elif flavor == "as": # Same flav any sign
+        sf_mask = ((ll_pairs.l0.pdgId == ll_pairs.l1.pdgId) | (ll_pairs.l0.pdgId == -ll_pairs.l1.pdgId))
+    else:
+        raise Exception(f"Error: flavor requirement \"{flavor}\" is unknown.")
+    sfosz_mask = ak.flatten(ak.any((zpeak_mask & sf_mask),axis=1,keepdims=True)) # Use flatten here because it is too nested (i.e. it looks like this [[T],[F],[T],...], and want this [T,F,T,...]))
     return sfosz_mask
 
 # Returns the pt of the l+l that form the Z peak

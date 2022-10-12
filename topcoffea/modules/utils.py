@@ -1,6 +1,9 @@
 import os
 import re
 import json
+import gzip
+import pickle
+import cloudpickle
 
 pjoin = os.path.join
 
@@ -64,6 +67,27 @@ def get_files(top_dir,**kwargs):
             found.append(fpath)
     return found
 
+# Moves a list of files to the specified target directory
+def move_files(files,target):
+    width = len(max(files,key=len))
+    for src in files:
+        dst = os.path.join(target,src)
+        os.rename(src,dst)
+
+# Removes files from tdir which match any of the regex in targets list
+def clean_dir(tdir,targets,dry_run=False):
+    fnames = regex_match(get_files(tdir),targets)
+    if len(fnames) == 0: return
+    print(f"Removing files from: {tdir}")
+    print(f"\tTargets: {targets}")
+    for fn in fnames:
+        fpath = os.path.join(tdir,fn)
+        if not dry_run:
+            print(f"\tRemoving {fn}")
+            os.remove(fpath)
+        else:
+            print(f"\tRemoving {fpath}")
+
 # Read from a sample json file
 def load_sample_json_file(fpath):
     if not os.path.exists(fpath):
@@ -113,6 +137,8 @@ def read_cfg_file(fpath,cfg={},max_files=0):
                 # Note: This implicitly assumes that a redirector line will appear before any json
                 #   paths in the cfg file
                 xrd_src = l
+            elif l.startswith("file://"):
+                xrd_src = l.replace("file://","")
             else:
                 sample = os.path.basename(l)
                 sample = sample.replace(".json","")
@@ -121,3 +147,43 @@ def read_cfg_file(fpath,cfg={},max_files=0):
                 cfg = update_cfg(jsn,sample,cfg=cfg,max_files=max_files,redirector=xrd_src)
     return cfg
 
+# Save to a pkl file
+def dump_to_pkl(out_name,out_file):
+    if not out_name.endswith(".pkl.gz"):
+        out_name = out_name + ".pkl.gz"
+    print(f"\nSaving output to {out_name}...")
+    with gzip.open(out_name, "wb") as fout:
+        cloudpickle.dump(out_file, fout)
+    print("Done.\n")
+
+# Get the dictionary of hists from the pkl file (e.g. that a processor outputs)
+def get_hist_from_pkl(path_to_pkl,allow_empty=True):
+    h = pickle.load( gzip.open(path_to_pkl) )
+    if not allow_empty:
+        h = {k:v for k,v in h.items() if v.values() != {}}
+    return h
+
+# Check if the contents of two dictionaries of lists agree
+# Assumes structure d = {k1: [i1,i2,...], ...}
+def dict_comp(in_dict1,in_dict2,strict=False):
+
+    def all_d1_in_d2(d1,d2):
+        agree = True
+        for k1,v1 in d1.items():
+            if k1 not in d2:
+                agree = False
+                break
+            for i1 in v1:
+                if i1 not in d2[k1]:
+                    agree = False
+                    break
+        return agree
+
+    dicts_match = all_d1_in_d2(in_dict1,in_dict2) and all_d1_in_d2(in_dict2,in_dict1)
+    print_str = f"The two dictionaries do not agree.\n\tDict 1:{in_dict1}\n\tDict 2:{in_dict2}"
+
+    if not dicts_match:
+        if strict: raise Exception("Error: "+print_str)
+        else: print("Warning: "+print_str)
+
+    return dicts_match

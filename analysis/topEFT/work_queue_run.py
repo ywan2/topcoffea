@@ -16,10 +16,12 @@ from coffea.util import load, save
 from coffea.nanoevents import NanoAODSchema
 
 import topeft
+import topcoffea.modules.utils as utils
 from topcoffea.modules import samples
 from topcoffea.modules import fileReader
 from topcoffea.modules.dataDrivenEstimation import DataDrivenProducer
-import topeftenv
+from topcoffea.modules.get_renormfact_envelope import get_renormfact_envelope
+import topcoffea.modules.remote_environment as remote_environment
 
 WGT_VAR_LST = [
     "nSumOfWeights_ISRUp",
@@ -45,11 +47,12 @@ parser.add_argument('--outname','-o'   , default='plotsTopEFT', help = 'Name of 
 parser.add_argument('--outpath','-p'   , default='histos', help = 'Name of the output directory')
 parser.add_argument('--treename'       , default='Events', help = 'Name of the tree inside the files')
 parser.add_argument('--do-errors'      , action='store_true', help = 'Save the w**2 coefficients')
-parser.add_argument('--do-systs', action='store_true', help = 'Compute systematic variations (for any MC samples)')
+parser.add_argument('--do-systs', action='store_true', help = 'Compute systematic variations')
 parser.add_argument('--split-lep-flavor', action='store_true', help = 'Split up categories by lepton flavor')
 parser.add_argument('--skip-sr', action='store_true', help = 'Skip all signal region categories')
 parser.add_argument('--skip-cr', action='store_true', help = 'Skip all control region categories')
 parser.add_argument('--do-np'  , action='store_true', help = 'Perform nonprompt estimation on the output hist, and save a new hist with the np contribution included. Note that signal, background and data samples should all be processed together in order for this option to make sense.')
+parser.add_argument('--do-renormfact-envelope', action='store_true', help = 'Perform renorm/fact envelope calculation on the output hist (saves the modified with the the same name as the original.')
 parser.add_argument('--wc-list', action='extend', nargs='+', help = 'Specify a list of Wilson coefficients to use in filling histograms.')
 parser.add_argument('--hist-list', action='extend', nargs='+', help = 'Specify a list of histograms to fill.')
 parser.add_argument('--ecut', default=None  , help = 'Energy cut threshold i.e. throw out events above this (GeV)')
@@ -70,7 +73,15 @@ split_lep_flavor = args.split_lep_flavor
 skip_sr    = args.skip_sr
 skip_cr    = args.skip_cr
 do_np      = args.do_np
+do_renormfact_envelope = args.do_renormfact_envelope
 wc_lst = args.wc_list if args.wc_list is not None else []
+
+# Check if we have valid options
+if do_renormfact_envelope:
+    if not do_systs:
+        raise Exception("Error: Cannot specify do_renormfact_envelope if we are not including systematics.")
+    if not do_np:
+        raise Exception("Error: Cannot specify do_renormfact_envelope if we have not already done the integration across the appl axis that occurs in the data driven estimator step.")
 
 # Set the threshold for the ecut (if not applying a cut, should be None)
 ecut_threshold = args.ecut
@@ -89,10 +100,13 @@ if len(port) == 1:
 # Figure out which hists to include
 if args.hist_list == ["ana"]:
   # Here we hardcode a list of hists used for the analysis
-  hist_lst = ["njets","ht","ptbl","ptz"]
+  hist_lst = ["njets","lj0pt","ptz"]
+elif args.hist_list == ["cr"]:
+  # Here we hardcode a list of hists used for the CRs
+  hist_lst = ["lj0pt", "ptz", "met", "ljptsum", "l0pt", "l0eta", "l1pt", "l1eta", "j0pt", "j0eta", "njets", "nbtagsl", "invmass"]
 else:
   # We want to specify a custom list
-  # If we don't specify this argument, it will be None, and the processor will fill all hists 
+  # If we don't specify this argument, it will be None, and the processor will fill all hists
   hist_lst = args.hist_list
 
 ### Load samples from json
@@ -207,7 +221,6 @@ processor_instance = topeft.AnalysisProcessor(samplesdict,wc_lst,hist_lst,ecut_t
 
 executor_args = {
     'master_name': '{}-workqueue-coffea'.format(os.environ['USER']),
-    'xrootdtimeout': 180,
 
     # find a port to run work queue in this range:
     'port': port,
@@ -215,12 +228,10 @@ executor_args = {
     'debug_log': 'debug.log',
     'transactions_log': 'tr.log',
     'stats_log': 'stats.log',
+	'tasks_accum_log': 'tasks.log',
 
-    'environment_file': topeftenv.get_environment(),
+    'environment_file': remote_environment.get_environment(),
     'extra_input_files': ["topeft.py"],
-
-    'schema': NanoAODSchema,
-    'skipbadfiles': False,
 
     'retries': 5,
 
@@ -281,7 +292,11 @@ executor_args = {
 
 # Run the processor and get the output
 tstart = time.time()
-output = processor.run_uproot_job(flist, treename=treename, processor_instance=processor_instance, executor=processor.work_queue_executor, executor_args=executor_args, chunksize=chunksize, maxchunks=nchunks)
+
+executor = processor.WorkQueueExecutor(**executor_args)
+runner = processor.Runner(executor, schema=NanoAODSchema, chunksize=chunksize, maxchunks=nchunks, skipbadfiles=False, xrootdtimeout=180)
+output = runner(flist, treename, processor_instance)
+
 dt = time.time() - tstart
 
 print('Processed {} events in {} seconds ({:.2f} evts/sec).'.format(nevts_total,dt,nevts_total/dt))
@@ -301,8 +316,14 @@ print("Done!")
 # Run the data driven estimation, save the output
 if do_np:
   print("\nDoing the nonprompt estimation...")
-  out_pkl_file_np = os.path.join(outpath,outname+"_np.pkl.gz")
-  ddp = DataDrivenProducer(out_pkl_file,out_pkl_file_np)
-  print(f"Saving output in {out_pkl_file_np}...")
+  out_pkl_file_name_np = os.path.join(outpath,outname+"_np.pkl.gz")
+  ddp = DataDrivenProducer(out_pkl_file,out_pkl_file_name_np)
+  print(f"Saving output in {out_pkl_file_name_np}...")
   ddp.dumpToPickle()
   print("Done!")
+  # Run the renorm fact envelope calculation
+  if do_renormfact_envelope:
+      print("\nDoing the renorm. fact. envelope calculation...")
+      dict_of_histos = utils.get_hist_from_pkl(out_pkl_file_name_np,allow_empty=False)
+      dict_of_histos_after_applying_envelope = get_renormfact_envelope(dict_of_histos)
+      utils.dump_to_pkl(out_pkl_file_name_np,dict_of_histos_after_applying_envelope)

@@ -17,7 +17,9 @@ from coffea.nanoevents import NanoAODSchema
 import topeft
 from topcoffea.modules import samples
 from topcoffea.modules import fileReader
+from topcoffea.modules.utils import dump_to_pkl, get_hist_from_pkl
 from topcoffea.modules.dataDrivenEstimation import DataDrivenProducer
+from topcoffea.modules.get_renormfact_envelope import get_renormfact_envelope
 
 WGT_VAR_LST = [
     "nSumOfWeights_ISRUp",
@@ -52,10 +54,11 @@ if __name__ == '__main__':
   parser.add_argument('--skip-sr', action='store_true', help = 'Skip all signal region categories')
   parser.add_argument('--skip-cr', action='store_true', help = 'Skip all control region categories')
   parser.add_argument('--do-np', action='store_true', help = 'Perform nonprompt estimation on the output hist, and save a new hist with the np contribution included. Note that signal, background and data samples should all be processed together in order for this option to make sense.')
+  parser.add_argument('--do-renormfact-envelope', action='store_true', help = 'Perform renorm/fact envelope calculation on the output hist (saves the modified with the the same name as the original.')
   parser.add_argument('--wc-list', action='extend', nargs='+', help = 'Specify a list of Wilson coefficients to use in filling histograms.')
   parser.add_argument('--hist-list', action='extend', nargs='+', help = 'Specify a list of histograms to fill.')
   parser.add_argument('--ecut', default=None  , help = 'Energy cut threshold i.e. throw out events above this (GeV)')
-  
+
   args = parser.parse_args()
   jsonFiles        = args.jsonFiles
   prefix           = args.prefix
@@ -73,7 +76,15 @@ if __name__ == '__main__':
   skip_sr          = args.skip_sr
   skip_cr          = args.skip_cr
   do_np            = args.do_np
+  do_renormfact_envelope= args.do_renormfact_envelope
   wc_lst = args.wc_list if args.wc_list is not None else []
+
+  # Check if we have valid options
+  if do_renormfact_envelope:
+      if not do_systs:
+          raise Exception("Error: Cannot specify do_renormfact_envelope if we are not including systematics.")
+      if not do_np:
+          raise Exception("Error: Cannot specify do_renormfact_envelope if we have not already done the integration across the appl axis that occurs in the data driven estimator step.")
 
   # Set the threshold for the ecut (if not applying a cut, should be None)
   ecut_threshold = args.ecut
@@ -82,7 +93,10 @@ if __name__ == '__main__':
   # Figure out which hists to include
   if args.hist_list == ["ana"]:
     # Here we hardcode a list of hists used for the analysis
-    hist_lst = ["njets","ht","ptbl","ptz"]
+    hist_lst = ["njets","lj0pt","ptz"]
+  elif args.hist_list == ["cr"]:
+    # Here we hardcode a list of hists used for the CRs
+    hist_lst = ["lj0pt", "ptz", "met", "ljptsum", "l0pt", "l0eta", "l1pt", "l1eta", "j0pt", "j0eta", "njets", "nbtagsl", "invmass"]
   else:
     # We want to specify a custom list
     # If we don't specify this argument, it will be None, and the processor will fill all hists 
@@ -199,19 +213,22 @@ if __name__ == '__main__':
     print('Wilson Coefficients: {}.'.format(wc_print))
   else:
     print('No Wilson coefficients specified')
- 
+
   processor_instance = topeft.AnalysisProcessor(samplesdict,wc_lst,hist_lst,ecut_threshold,do_errors,do_systs,split_lep_flavor,skip_sr,skip_cr)
+
+  exec_instance = processor.FuturesExecutor(workers=nworkers)
+  runner = processor.Runner(exec_instance, schema=NanoAODSchema, chunksize=chunksize, maxchunks=nchunks)
 
   # Run the processor and get the output
   tstart = time.time()
-  output = processor.run_uproot_job(flist, treename=treename, processor_instance=processor_instance, executor=processor.futures_executor, executor_args={"schema": NanoAODSchema,'workers': nworkers}, chunksize=chunksize, maxchunks=nchunks)
+  output = runner(flist, treename, processor_instance)
   dt = time.time() - tstart
 
   nbins = sum(sum(arr.size for arr in h._sumw.values()) for h in output.values() if isinstance(h, hist.Hist))
   nfilled = sum(sum(np.sum(arr > 0) for arr in h._sumw.values()) for h in output.values() if isinstance(h, hist.Hist))
   print("Filled %.0f bins, nonzero bins: %1.1f %%" % (nbins, 100*nfilled/nbins,))
   print("Processing time: %1.2f s with %i workers (%.2f s cpu overall)" % (dt, nworkers, dt*nworkers, ))
- 
+
   # Save the output
   if not os.path.isdir(outpath): os.system("mkdir -p %s"%outpath)
   out_pkl_file = os.path.join(outpath,outname+".pkl.gz")
@@ -223,8 +240,13 @@ if __name__ == '__main__':
   # Run the data driven estimation, save the output
   if do_np:
     print("\nDoing the nonprompt estimation...")
-    out_pkl_file_np = os.path.join(outpath,outname+"_np.pkl.gz")
-    ddp = DataDrivenProducer(out_pkl_file,out_pkl_file_np)
-    print(f"Saving output in {out_pkl_file_np}...")
+    out_pkl_file_name_np = os.path.join(outpath,outname+"_np.pkl.gz")
+    ddp = DataDrivenProducer(out_pkl_file,out_pkl_file_name_np)
+    print(f"Saving output in {out_pkl_file_name_np}...")
     ddp.dumpToPickle()
     print("Done!")
+    if do_renormfact_envelope:
+      print("\nDoing the renorm. fact. envelope calculation...")
+      dict_of_histos = get_hist_from_pkl(out_pkl_file_name_np,allow_empty=False)
+      dict_of_histos_after_applying_envelope = get_renormfact_envelope(dict_of_histos)
+      dump_to_pkl(out_pkl_file_name_np,dict_of_histos_after_applying_envelope)
